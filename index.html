@@ -52,6 +52,49 @@
     <header>
       
         <div class="icon"></div>
+        <time datetime="2016-11-06T14:58:53.000Z"><a href="/2016/11/06/mongodb常用命令/">2016-11-06</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2016/11/06/mongodb常用命令/">mongodb常用命令</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h3 id="mongodb常用命令"><a href="#mongodb常用命令" class="headerlink" title="mongodb常用命令"></a>mongodb常用命令</h3><h4 id="1、创建数据库"><a href="#1、创建数据库" class="headerlink" title="1、创建数据库"></a>1、创建数据库</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">$ mongodb --dbpath your-dbpath --port your-port   </div><div class="line"></div><div class="line">--logpath your-logpath</div><div class="line"></div><div class="line">egg:</div><div class="line"></div><div class="line">$ mongodb --dbpath d:\db\data --port 27017   </div><div class="line"></div><div class="line">--logpath d:\db\<span class="built_in">log</span></div></pre></td></tr></table></figure>
+<p>简便方法：写配置文件，例如在d盘下面的db文件件下建立三个文件夹<br>data、log、conf,然后在conf文件夹中建立一个mongod.conf的配置<br>配置文件，<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">dbpath = d:\\db\\data</div><div class="line">logpath = d:\\db\\log\\mongod.log</div><div class="line">port = <span class="number">27017</span></div></pre></td></tr></table></figure></p>
+<p>然后在d盘根目录下运行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ mongod --port 27017 <span class="_">-f</span> db/conf/mongod.conf</div></pre></td></tr></table></figure></p>
+<h4 id="2、连接mongodb"><a href="#2、连接mongodb" class="headerlink" title="2、连接mongodb"></a>2、连接mongodb</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ mongo --port your-port</div><div class="line"></div><div class="line">egg:</div><div class="line"></div><div class="line">$ mongo --port 27017</div></pre></td></tr></table></figure>
+<h4 id="3、显示数据库中所有的数据库列表"><a href="#3、显示数据库中所有的数据库列表" class="headerlink" title="3、显示数据库中所有的数据库列表"></a>3、显示数据库中所有的数据库列表</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ show dbs</div></pre></td></tr></table></figure>
+<h4 id="4、使用某个数据库"><a href="#4、使用某个数据库" class="headerlink" title="4、使用某个数据库"></a>4、使用某个数据库</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ use db_name</div><div class="line">egg:</div><div class="line">$ use <span class="built_in">test</span></div></pre></td></tr></table></figure>
+<h4 id="5、插入数据"><a href="#5、插入数据" class="headerlink" title="5、插入数据"></a>5、插入数据</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ db.test.insert(&#123;key1:value1,key2:value2,...&#125;)</div><div class="line">egg:</div><div class="line">$ db.test.insert(&#123;<span class="string">"name"</span>:<span class="string">"zhangsan"</span>,<span class="string">"age"</span>:<span class="string">"14"</span>&#125;)</div></pre></td></tr></table></figure>
+<h4 id="6、删除数据"><a href="#6、删除数据" class="headerlink" title="6、删除数据"></a>6、删除数据</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ db.test.remove(&#123;key:value&#125;)</div><div class="line">egg:</div><div class="line">$ db.test.remove(&#123;<span class="string">"name"</span>:<span class="string">"zhangsan"</span>&#125;)</div></pre></td></tr></table></figure>
+<h4 id="7、更新数据"><a href="#7、更新数据" class="headerlink" title="7、更新数据"></a>7、更新数据</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">$ db.test.update(</div><div class="line">  &lt;query&gt;,</div><div class="line">  &lt;update&gt;</div><div class="line">  &#123;</div><div class="line">    upsert: &lt;boolean&gt;,</div><div class="line">    multi: &lt;boolean&gt;,</div><div class="line">    writeConcern: &lt;document&gt;</div><div class="line">  &#125;)</div><div class="line">egg:</div><div class="line">$ db.test.update(&#123;</div><div class="line">  <span class="string">"name"</span>:<span class="string">"zhangsan"</span></div><div class="line">&#125;,&#123;</div><div class="line">  <span class="variable">$set</span>&#123;</div><div class="line">    <span class="string">"name"</span>:<span class="string">"lisi"</span></div><div class="line">  &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h4 id="8、查询"><a href="#8、查询" class="headerlink" title="8、查询"></a>8、查询</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ db.test.find(&lt;query&gt;)</div><div class="line">egg:</div><div class="line">$ db.test.find(&#123;&#125;) //查询所有数据</div><div class="line">$ db.test.find(&#123;<span class="string">"name"</span>:<span class="string">"lisi"</span>&#125;)</div></pre></td></tr></table></figure>
+<p>更多参考：<a href="http://www.runoob.com/mongodb/mongodb-tutorial.html" target="_blank" rel="external">http://www.runoob.com/mongodb/mongodb-tutorial.html</a></p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
         <time datetime="2016-11-01T17:04:50.000Z"><a href="/2016/11/02/React/">2016-11-02</a></time>
       
       
@@ -165,6 +208,10 @@
 <div class="widget tag">
   <h3 class="title">最新文章</h3>
   <ul class="entry">
+    
+      <li>
+        <a href="/2016/11/06/mongodb常用命令/">mongodb常用命令</a>
+      </li>
     
       <li>
         <a href="/2016/11/02/React/">React生命周期</a>
