@@ -1,12 +1,90 @@
-<!DOCTYPE HTML>
-<html>
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
   
-  <title>React生命周期 | 冯博的个人博客</title>
-  <meta name="author" content="phobal">
   
-  <meta name="description" content="生命周期方法组件的生命周期主要包括以下几种情况
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="生命周期方法组件的生命周期主要包括以下几种情况
 
 组件被实例化的时候
 
@@ -18,62 +96,227 @@
 
 
 1 componentWillMount1void componentWillMount()
-条件：第一次渲染阶段在调用 render 方法前会被调用作用：该方">
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+条件：第一次渲染阶段在调用 render 方法前会被调用作用：该方法在整个组件生命周期只会被调用一次，所以可以利用该方法做一些组件内部的初始化工作
+2 compone">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React生命周期">
+<meta property="og:url" content="http://yoursite.com/2016/11/02/React/index.html">
+<meta property="og:site_name" content="冯博的个人博客">
+<meta property="og:description" content="生命周期方法组件的生命周期主要包括以下几种情况
 
-  <meta property="og:title" content="React生命周期"/>
-  <meta property="og:site_name" content="冯博的个人博客"/>
+组件被实例化的时候
 
-  
-    <meta property="og:image" content="undefined"/>
-  
+组件属性改变的时候
 
-  <link href="/favicon.png" rel="icon">
-  <link rel="alternate" href="/atom.xml" title="冯博的个人博客" type="application/atom+xml">
-  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
-  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-  
+组件状态被改变的时候
 
+组件被销毁的时候
+
+
+1 componentWillMount1void componentWillMount()
+条件：第一次渲染阶段在调用 render 方法前会被调用作用：该方法在整个组件生命周期只会被调用一次，所以可以利用该方法做一些组件内部的初始化工作
+2 compone">
+<meta property="og:updated_time" content="2016-11-01T17:06:50.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React生命周期">
+<meta name="twitter:description" content="生命周期方法组件的生命周期主要包括以下几种情况
+
+组件被实例化的时候
+
+组件属性改变的时候
+
+组件状态被改变的时候
+
+组件被销毁的时候
+
+
+1 componentWillMount1void componentWillMount()
+条件：第一次渲染阶段在调用 render 方法前会被调用作用：该方法在整个组件生命周期只会被调用一次，所以可以利用该方法做一些组件内部的初始化工作
+2 compone">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/11/02/React/"/>
+
+
+  <title> React生命周期 | 冯博的个人博客 </title>
 </head>
 
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-CN">
 
-<body>
-  <header id="header" class="inner"><div class="alignleft">
-  <h1><a href="/">冯博的个人博客</a></h1>
-  <h2><a href="/"></a></h2>
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">冯博的个人博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
 </div>
-<nav id="main-nav" class="alignright">
-  <ul>
-    
-      <li><a href="/">主页</a></li>
-    
-      <li><a href="/archives">归档</a></li>
-    
-      <li><a href="/about">关于</a></li>
-    
-  </ul>
-  <div class="clearfix"></div>
-</nav>
-<div class="clearfix"></div>
-</header>
-  <div id="content" class="inner">
-    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2016-11-01T17:04:50.000Z"><a href="/2016/11/02/React/">2016-11-02</a></time>
-      
-      
-  
-    <h1 class="title">React生命周期</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
   
 
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule" rel="section">
+            
+            Schedule
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
     </header>
-    <div class="entry">
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                React生命周期
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-11-02T01:04:50+08:00" content="2016-11-02">
+              2016-11-02
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
       
         <h2 id="生命周期方法"><a href="#生命周期方法" class="headerlink" title="生命周期方法"></a>生命周期方法</h2><p>组件的生命周期主要包括以下几种情况</p>
 <ul>
@@ -106,111 +349,270 @@
 
       
     </div>
-    <footer>
+
+    <div>
       
         
-        
-        
-  <div class="addthis addthis_toolbox addthis_default_style">
-    
-      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
-    
-    
-      <a class="addthis_button_tweet"></a>
-    
-    
-      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
-    
-    
-      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
-    
-    <a class="addthis_counter addthis_pill_style"></a>
-  </div>
-  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
 
       
-      <div class="clearfix"></div>
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/11/01/hello-world/" rel="next" title="使用hexo搭建博客系统">
+                <i class="fa fa-chevron-left"></i> 使用hexo搭建博客系统
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/11/06/mongodb常用命令/" rel="prev" title="mongodb常用命令">
+                mongodb常用命令 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
     </footer>
-  </div>
-</article>
+  </article>
 
 
-<section id="comment">
-  <h1 class="title">留言</h1>
 
-  
-      <div id="fb-root"></div>
-<script>
-  (function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
-</script>
-
-<div class="fb-comments" data-href="http://yoursite.com/2016/11/02/React/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+    <div class="post-spread">
       
-  
-</section>
-
-</div></div>
-    <aside id="sidebar" class="alignright">
-  <div class="search">
-  <form action="//google.com/search" method="get" accept-charset="utf-8">
-    <input type="search" name="q" results="0" placeholder="搜索">
-    <input type="hidden" name="q" value="site:yoursite.com">
-  </form>
-</div>
-
-  
-<div class="widget tag">
-  <h3 class="title">最新文章</h3>
-  <ul class="entry">
-    
-      <li>
-        <a href="/2016/11/06/mongodb常用命令/">mongodb常用命令</a>
-      </li>
-    
-      <li>
-        <a href="/2016/11/02/React/">React生命周期</a>
-      </li>
-    
-      <li>
-        <a href="/2016/11/01/hello-world/">使用hexo搭建博客系统</a>
-      </li>
-    
-  </ul>
-</div>
-
-
-  
-
-  
-</aside>
-    <div class="clearfix"></div>
+    </div>
   </div>
-  <footer id="footer" class="inner"><div class="alignleft">
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
   
-  &copy; 2016 phobal
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="phobal" />
+          <p class="site-author-name" itemprop="name">phobal</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#生命周期方法"><span class="nav-number">1.</span> <span class="nav-text">生命周期方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-componentWillMount"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">1 componentWillMount</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-componentDidMount"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">2 componentDidMount</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-componentWillReceiveProps-newProps"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">3 componentWillReceiveProps(newProps)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-shouldComponentUpdate-nextProps-nextState"><span class="nav-number">1.0.0.4.</span> <span class="nav-text">4 shouldComponentUpdate(nextProps, nextState)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-componentWillUpdate"><span class="nav-number">1.0.0.5.</span> <span class="nav-text">5 componentWillUpdate</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-componentDidUpdate"><span class="nav-number">1.0.0.6.</span> <span class="nav-text">6 componentDidUpdate</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
   
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">phobal</span>
 </div>
-<div class="clearfix"></div></footer>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-<script src="/js/jquery.imagesloaded.min.js"></script>
-<script src="/js/gallery.js"></script>
 
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
 
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
 
+        
 
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
 <script type="text/javascript">
-(function($){
-  $('.fancybox').fancybox();
-})(jQuery);
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
 </script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
 
 </body>
 </html>
