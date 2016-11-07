@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="mongodb," />
 
 
 
@@ -92,7 +92,7 @@
 <meta property="og:site_name" content="phobal`blogs">
 <meta property="og:description" content="mongodb常用命令1、创建数据库123456789$ mongodb --dbpath your-dbpath --port your-port   --logpath your-logpathegg:$ mongodb --dbpath d:\db\data --port 27017   --logpath d:\db\log
 简便方法：写配置文件，例如在d盘下面的db文件件下建立三个文件夹">
-<meta property="og:updated_time" content="2016-11-06T16:55:55.000Z">
+<meta property="og:updated_time" content="2016-11-07T16:41:55.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mongodb常用命令">
 <meta name="twitter:description" content="mongodb常用命令1、创建数据库123456789$ mongodb --dbpath your-dbpath --port your-port   --logpath your-logpathegg:$ mongodb --dbpath d:\db\data --port 27017   --logpath d:\db\log
@@ -176,6 +176,8 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
             首页
           </a>
         </li>
@@ -183,6 +185,8 @@
         
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
             归档
           </a>
@@ -192,6 +196,8 @@
         <li class="menu-item menu-item-tags">
           <a href="/tags" rel="section">
             
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
             标签
           </a>
         </li>
@@ -200,6 +206,8 @@
         <li class="menu-item menu-item-about">
           <a href="/about" rel="section">
             
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
             关于
           </a>
         </li>
@@ -207,6 +215,8 @@
         
         <li class="menu-item menu-item-schedule">
           <a href="/schedule" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
             
             日程
           </a>
@@ -239,7 +249,7 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+  <article class="post post-type-tags " itemscope itemtype="//schema.org/Article">
 
     
       <header class="post-header">
@@ -268,8 +278,34 @@
           </span>
 
           
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/database/" itemprop="url" rel="index">
+                    <span itemprop="name">database</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
 
           
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/11/06/mongodb常用命令/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/06/mongodb常用命令/" itemprop="commentsCount"></span>
+                </a>
+              </span>
             
           
 
@@ -321,13 +357,19 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/mongodb/" rel="tag">#mongodb</a>
+          
+        </div>
+      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/11/02/React/" rel="next" title="React生命周期">
-                <i class="fa fa-chevron-left"></i> React生命周期
+              <a href="/2016/11/01/hello-world/" rel="next" title="使用hexo搭建博客系统">
+                <i class="fa fa-chevron-left"></i> 使用hexo搭建博客系统
               </a>
             
           </div>
@@ -357,6 +399,10 @@
 
           
   <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/11/06/mongodb常用命令/"
+           data-title="mongodb常用命令" data-url="http://phobal.geithub.io/2016/11/06/mongodb常用命令/">
+      </div>
     
   </div>
 
@@ -400,13 +446,27 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-count">2</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
 
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
           
 
         </nav>
@@ -414,6 +474,35 @@
         
 
         <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/phobal" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/phoneball" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/phoneball" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
           
         </div>
 
@@ -553,9 +642,30 @@
 
   
 
+  
+    
+  
 
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"phobal"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
 
   
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
 
 
 
