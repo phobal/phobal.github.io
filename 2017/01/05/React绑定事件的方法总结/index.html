@@ -84,18 +84,18 @@
 
 
 
-<meta name="description" content="React绑定事件的方法总结在使用react进行组件化开发过程中，对组件中的某一个元素进行绑定事件是一个经常做的工作，比如：提交表单按钮click事件、文本框输入值后的onchange事件等等。以下总结下我在平常开发中常用的3种方法。
+<meta name="description" content="React绑定事件的方法总结在使用react进行组件化开发过程中，对组件中的某一个元素进行绑定事件是一个经常做的工作，比如：提交表单按钮click事件、文本框输入值后的onchange事件等等。以下总结下我在平常开发中常用的4种方法。
 1、在元素中写bind12345678910111213141516import React from &apos;react&apos;;export default class C">
 <meta property="og:type" content="article">
 <meta property="og:title" content="React绑定事件的方法总结">
 <meta property="og:url" content="http://phobal.geithub.io/2017/01/05/React绑定事件的方法总结/index.html">
 <meta property="og:site_name" content="phobal`s blogs">
-<meta property="og:description" content="React绑定事件的方法总结在使用react进行组件化开发过程中，对组件中的某一个元素进行绑定事件是一个经常做的工作，比如：提交表单按钮click事件、文本框输入值后的onchange事件等等。以下总结下我在平常开发中常用的3种方法。
+<meta property="og:description" content="React绑定事件的方法总结在使用react进行组件化开发过程中，对组件中的某一个元素进行绑定事件是一个经常做的工作，比如：提交表单按钮click事件、文本框输入值后的onchange事件等等。以下总结下我在平常开发中常用的4种方法。
 1、在元素中写bind12345678910111213141516import React from &apos;react&apos;;export default class C">
-<meta property="og:updated_time" content="2017-01-05T17:00:39.000Z">
+<meta property="og:updated_time" content="2017-01-05T17:13:02.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="React绑定事件的方法总结">
-<meta name="twitter:description" content="React绑定事件的方法总结在使用react进行组件化开发过程中，对组件中的某一个元素进行绑定事件是一个经常做的工作，比如：提交表单按钮click事件、文本框输入值后的onchange事件等等。以下总结下我在平常开发中常用的3种方法。
+<meta name="twitter:description" content="React绑定事件的方法总结在使用react进行组件化开发过程中，对组件中的某一个元素进行绑定事件是一个经常做的工作，比如：提交表单按钮click事件、文本框输入值后的onchange事件等等。以下总结下我在平常开发中常用的4种方法。
 1、在元素中写bind12345678910111213141516import React from &apos;react&apos;;export default class C">
 
 
@@ -307,7 +307,7 @@
       
 
       
-        <h3 id="React绑定事件的方法总结"><a href="#React绑定事件的方法总结" class="headerlink" title="React绑定事件的方法总结"></a>React绑定事件的方法总结</h3><p>在使用react进行组件化开发过程中，对组件中的某一个元素进行绑定事件是一个经常做的工作，比如：提交表单按钮click事件、文本框输入值后的onchange事件等等。以下总结下我在平常开发中常用的3种方法。</p>
+        <h3 id="React绑定事件的方法总结"><a href="#React绑定事件的方法总结" class="headerlink" title="React绑定事件的方法总结"></a>React绑定事件的方法总结</h3><p>在使用react进行组件化开发过程中，对组件中的某一个元素进行绑定事件是一个经常做的工作，比如：提交表单按钮click事件、文本框输入值后的onchange事件等等。以下总结下我在平常开发中常用的4种方法。</p>
 <h4 id="1、在元素中写bind"><a href="#1、在元素中写bind" class="headerlink" title="1、在元素中写bind"></a>1、在元素中写bind</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">Component</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line">    <span class="keyword">constructor</span>(props)&#123;</div><div class="line">        <span class="keyword">super</span>(props)</div><div class="line">    &#125;</div><div class="line">    onClick(e)&#123;</div><div class="line">        <span class="built_in">console</span>.log(e)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    render()&#123;</div><div class="line">        <span class="keyword">return</span> (</div><div class="line">        &lt;button onClick = &#123;this.onClick.bind(this)&#125; /&gt;</div><div class="line">        )</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h4 id="2、在constructor中写bind"><a href="#2、在constructor中写bind" class="headerlink" title="2、在constructor中写bind"></a>2、在constructor中写bind</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">Component</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line">    <span class="keyword">constructor</span>(props)&#123;</div><div class="line">        <span class="keyword">super</span>(props)</div><div class="line">        <span class="keyword">this</span>.onClick = <span class="keyword">this</span>.onClick.bind(<span class="keyword">this</span>)</div><div class="line">    &#125;</div><div class="line">    onClick(e)&#123;</div><div class="line">        <span class="built_in">console</span>.log(e)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    render()&#123;</div><div class="line">        <span class="keyword">return</span> (</div><div class="line">        &lt;button onClick = &#123;this.onClick&#125; /&gt;</div><div class="line">        )</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h4 id="3、使用箭头函数"><a href="#3、使用箭头函数" class="headerlink" title="3、使用箭头函数"></a>3、使用箭头函数</h4><p>箭头函数可以绑定this对象，大大减少显式绑定this对象的写法(call,apply,bind)</p>
