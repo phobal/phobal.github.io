@@ -96,7 +96,7 @@
 
 1.1、node环境安装1.1.1、NVM 安装为避免各个项目中使用到的node版本不一致的问题，所以推荐使用NVM来进行管理node的版本，需要哪  版本的node就切换哪个版本，比较方便。安装方式参照https://segmentfault.com/a/11900000044045051.1.2、查看远程可以下载的nodejs版本  
 1$ nvm ls-rem">
-<meta property="og:updated_time" content="2017-01-05T17:10:03.000Z">
+<meta property="og:updated_time" content="2017-03-20T02:58:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mac使用记录">
 <meta name="twitter:description" content="开发相关1、前端开发环境搭建
@@ -338,10 +338,21 @@
 <li><p>4.1 用Python启动一个小型的服务器</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python -m SimpleHTTPServer 9992</div></pre></td></tr></table></figure>
 </li>
-<li><p>5.1 ssh连接unix使进程一直开启</p>
+<li><p>5.1 ssh断开Linux使进程一直开启</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ nohup python -m SimpleHTTPServer 9992 &amp;</div></pre></td></tr></table></figure>
 </li>
+<li><p>6.1 复制一个文件到另外一个文件夹下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ cp -Rf 源路径/ 目标路径/</div></pre></td></tr></table></figure>
+</li>
 </ul>
+<p>例如：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ cp -Rf ./build/* user/sites/</div></pre></td></tr></table></figure></p>
+<ul>
+<li>7 Python断点调试<br>①在需要调试的位置加上以下代码<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> pdb; pdb.set_trace()</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>②在控制台运行该脚本文件<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ python -m pdb XXX.py</div></pre></td></tr></table></figure></p>
+<p>然后就会在第①步的地方停止<br><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">(Pdb)</div></pre></td></tr></table></figure></p>
+<p>这时按‘c’继续,并且可以在控制台打印需要显示的值</p>
 <h3 id="开发无关"><a href="#开发无关" class="headerlink" title="开发无关"></a>开发无关</h3>
       
     </div>
@@ -449,7 +460,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">8</span>
+              <span class="site-state-item-count">10</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

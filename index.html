@@ -259,6 +259,227 @@
             
               
                 
+                <a class="post-title-link" href="/2017/04/08/react-state定义的3种方式/" itemprop="url">
+                  react state定义的3种方式
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-04-08T16:35:18+08:00" content="2017-04-08">
+              2017-04-08
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/04/08/react-state定义的3种方式/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/04/08/react-state定义的3种方式/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="react中state定义的3种方式"><a href="#react中state定义的3种方式" class="headerlink" title="react中state定义的3种方式"></a>react中state定义的3种方式</h3><p>大家都知道的在react组件中，我们通过props和state来控制数据，props是在父组件中被指定的<br>而且一经指定，在被指定的组件的生命周期内是不能够进行改变的，对于需要改变的数据，只能依托<br>state来进行处理了，所以就引申出了一个话题，如何初始化state呢？<br>我根据react的发展历程来进行总结出3中写法。</p>
+<h4 id="ES5-在getInitialState中进行设置"><a href="#ES5-在getInitialState中进行设置" class="headerlink" title="ES5 在getInitialState中进行设置"></a>ES5 在getInitialState中进行设置</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> MyComponent = React.createClass(&#123;</div><div class="line">    <span class="attr">getInitialState</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        disable:<span class="literal">false</span></div><div class="line">    &#125;</div><div class="line">    render:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="keyword">return</span> (</div><div class="line">            &lt;button disable=&#123;this.state.disable&#125;&gt;submit&lt;\/button&gt;</div><div class="line">        )</div><div class="line">    &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>这种写法是es5的写法，比较老了，不推荐使用这种方式写，当时出现这种方式主要是因为webpack和  babel还未兴起，现在他们大行其道，自然大家更倾向于es6的写法了。</p>
+<h4 id="ES6-在constructor中进行设置"><a href="#ES6-在constructor中进行设置" class="headerlink" title="ES6 在constructor中进行设置"></a>ES6 在constructor中进行设置</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyComponent</span> <span class="keyword">extends</span> <span class="title">PureComponent</span> </span>&#123;</div><div class="line">    <span class="keyword">constructor</span>(props)&#123;</div><div class="line">        <span class="keyword">super</span>(props)</div><div class="line">        <span class="keyword">this</span>.state = &#123;</div><div class="line">            <span class="attr">disable</span>:<span class="literal">false</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    render()&#123;</div><div class="line">        <span class="keyword">return</span> (</div><div class="line">            &lt;button disable=&#123;this.state.disable&#125;&gt;submit&lt;\/button&gt;</div><div class="line">        )</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>es6提出了class的概念，constructor作为一个类的入口，每次初始化的时候都会执行constructor中的代码，所以我们可以将state写在构造函数中，这个也是react官方推荐的写法。</p>
+<h4 id="ES7-定义实例属性"><a href="#ES7-定义实例属性" class="headerlink" title="ES7 定义实例属性"></a>ES7 定义实例属性</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyComponent</span> <span class="keyword">extends</span> <span class="title">PureComponent</span> </span>&#123;</div><div class="line">    state = &#123;</div><div class="line">        <span class="attr">disable</span>:<span class="literal">false</span></div><div class="line">    &#125;</div><div class="line">    render()&#123;</div><div class="line">        <span class="keyword">return</span> (</div><div class="line">            &lt;button disable=&#123;this.state.disable&#125;&gt;&lt;\/button&gt;</div><div class="line">        )</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>ES6中不支持在class中定义类的属性，只能定义方法，例如：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span></span>&#123;</div><div class="line">    name:a,</div><div class="line">    method()&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">Foo.name     <span class="comment">//undefined</span></div></pre></td></tr></table></figure></p>
+<p>而在ES7的提案中允许通过“=”赋值的方法设置类的实例属性。</p>
+<p>&lt;完&gt;</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/02/19/云服务器配置杂记/" itemprop="url">
+                  云服务器配置杂记
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-02-19T23:05:12+08:00" content="2017-02-19">
+              2017-02-19
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/02/19/云服务器配置杂记/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/19/云服务器配置杂记/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="配置云服务器"><a href="#配置云服务器" class="headerlink" title="配置云服务器"></a>配置云服务器</h3><p>配置清单<br>供应商：京东云服务平台<br>镜像：centos 6.8 64位<br>CPU：1核<br>内存：1GB<br>系统盘：30G</p>
+<p>1、SSH方式连接服务器<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ssh root@ip</div></pre></td></tr></table></figure></p>
+<p>根据提示已经将这台服务器的指纹添加到known hosts,然后提示输入密码，密码正确就显示：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@username ~]<span class="comment">#</span></div></pre></td></tr></table></figure></p>
+<p>2、断开服务器的连接<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">logout</span></div></pre></td></tr></table></figure></p>
+<p>3、本地文件上传到服务器<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ scp /path/filename username@servername:/path,</div></pre></td></tr></table></figure></p>
+<p>例如：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ scp ./ssh.md root@192.168.1.3:/root/phobal/<span class="built_in">test</span>/</div></pre></td></tr></table></figure></p>
+<p>把本机当前目录下的shh.md拷贝到服务器/root/phobal/test/文件夹下</p>
+<p>4上传文件夹<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ scp /path/folder/* username@servername:/path</div></pre></td></tr></table></figure></p>
+<p>例如：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ scp /websites/machine/* root@192.168.1.3:/root/phobal/<span class="built_in">test</span>/</div></pre></td></tr></table></figure></p>
+<p>5、从服务器上下载文件<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ scp username@servername:/path/filename</div></pre></td></tr></table></figure></p>
+<p>例如：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ scp root@222.187.245.173:/root/phobal/<span class="built_in">test</span>/hello.js</div></pre></td></tr></table></figure></p>
+<p>6、从服务器下载整个文件夹<br>参考 <a href="http://www.2cto.com/os/201304/205467.html" target="_blank" rel="external">http://www.2cto.com/os/201304/205467.html</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2017/01/05/React绑定事件的方法总结/" itemprop="url">
                   React绑定事件的方法总结
                 </a>
@@ -447,10 +668,21 @@
 <li><p>4.1 用Python启动一个小型的服务器</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python -m SimpleHTTPServer 9992</div></pre></td></tr></table></figure>
 </li>
-<li><p>5.1 ssh连接unix使进程一直开启</p>
+<li><p>5.1 ssh断开Linux使进程一直开启</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ nohup python -m SimpleHTTPServer 9992 &amp;</div></pre></td></tr></table></figure>
 </li>
+<li><p>6.1 复制一个文件到另外一个文件夹下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ cp -Rf 源路径/ 目标路径/</div></pre></td></tr></table></figure>
+</li>
 </ul>
+<p>例如：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ cp -Rf ./build/* user/sites/</div></pre></td></tr></table></figure></p>
+<ul>
+<li>7 Python断点调试<br>①在需要调试的位置加上以下代码<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> pdb; pdb.set_trace()</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>②在控制台运行该脚本文件<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ python -m pdb XXX.py</div></pre></td></tr></table></figure></p>
+<p>然后就会在第①步的地方停止<br><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">(Pdb)</div></pre></td></tr></table></figure></p>
+<p>这时按‘c’继续,并且可以在控制台打印需要显示的值</p>
 <h3 id="开发无关"><a href="#开发无关" class="headerlink" title="开发无关"></a>开发无关</h3>
           
         
@@ -1261,7 +1493,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">8</span>
+              <span class="site-state-item-count">10</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

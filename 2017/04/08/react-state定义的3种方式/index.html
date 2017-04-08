@@ -84,31 +84,19 @@
 
 
 
-<meta name="description" content="目的弥补chrome浏览器只能在书签管理器中才能进行对书签进行搜索，该插件可以直接在浏览器顶部进行搜索已有书签简单的效果图
-简单的目录结构
-文件说明：
-images 文件夹主要拿来存放插件中需要用到的图片文件main.js是整个插件的逻辑代码manifest.json插件的配置文件popup.html插件的页面结构文件styles.css样式文件  
-写扩展最主要的就是配置manifest.jso">
+<meta name="description" content="react中state定义的3种方式大家都知道的在react组件中，我们通过props和state来控制数据，props是在父组件中被指定的而且一经指定，在被指定的组件的生命周期内是不能够进行改变的，对于需要改变的数据，只能依托state来进行处理了，所以就引申出了一个话题，如何初始化state呢？我根据react的发展历程来进行总结出3中写法。
+ES5 在getInitialState中进行设置">
 <meta property="og:type" content="article">
-<meta property="og:title" content="编写chrome插件-bookmarks">
-<meta property="og:url" content="http://phobal.geithub.io/2016/11/09/编写chrome插件-bookmarks/index.html">
+<meta property="og:title" content="react state定义的3种方式">
+<meta property="og:url" content="http://phobal.geithub.io/2017/04/08/react-state定义的3种方式/index.html">
 <meta property="og:site_name" content="phobal`s blogs">
-<meta property="og:description" content="目的弥补chrome浏览器只能在书签管理器中才能进行对书签进行搜索，该插件可以直接在浏览器顶部进行搜索已有书签简单的效果图
-简单的目录结构
-文件说明：
-images 文件夹主要拿来存放插件中需要用到的图片文件main.js是整个插件的逻辑代码manifest.json插件的配置文件popup.html插件的页面结构文件styles.css样式文件  
-写扩展最主要的就是配置manifest.jso">
-<meta property="og:image" content="http://phobal.geithub.io/../img/search.png">
-<meta property="og:image" content="http://phobal.geithub.io/../img/stuct.png">
-<meta property="og:updated_time" content="2016-11-13T11:12:20.000Z">
+<meta property="og:description" content="react中state定义的3种方式大家都知道的在react组件中，我们通过props和state来控制数据，props是在父组件中被指定的而且一经指定，在被指定的组件的生命周期内是不能够进行改变的，对于需要改变的数据，只能依托state来进行处理了，所以就引申出了一个话题，如何初始化state呢？我根据react的发展历程来进行总结出3中写法。
+ES5 在getInitialState中进行设置">
+<meta property="og:updated_time" content="2017-04-08T09:27:21.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="编写chrome插件-bookmarks">
-<meta name="twitter:description" content="目的弥补chrome浏览器只能在书签管理器中才能进行对书签进行搜索，该插件可以直接在浏览器顶部进行搜索已有书签简单的效果图
-简单的目录结构
-文件说明：
-images 文件夹主要拿来存放插件中需要用到的图片文件main.js是整个插件的逻辑代码manifest.json插件的配置文件popup.html插件的页面结构文件styles.css样式文件  
-写扩展最主要的就是配置manifest.jso">
-<meta name="twitter:image" content="http://phobal.geithub.io/../img/search.png">
+<meta name="twitter:title" content="react state定义的3种方式">
+<meta name="twitter:description" content="react中state定义的3种方式大家都知道的在react组件中，我们通过props和state来控制数据，props是在父组件中被指定的而且一经指定，在被指定的组件的生命周期内是不能够进行改变的，对于需要改变的数据，只能依托state来进行处理了，所以就引申出了一个话题，如何初始化state呢？我根据react的发展历程来进行总结出3中写法。
+ES5 在getInitialState中进行设置">
 
 
 
@@ -129,10 +117,10 @@ images 文件夹主要拿来存放插件中需要用到的图片文件main.js是
 
 
 
-  <link rel="canonical" href="http://phobal.geithub.io/2016/11/09/编写chrome插件-bookmarks/"/>
+  <link rel="canonical" href="http://phobal.geithub.io/2017/04/08/react-state定义的3种方式/"/>
 
 
-  <title> 编写chrome插件-bookmarks | phobal`s blogs </title>
+  <title> react state定义的3种方式 | phobal`s blogs </title>
 </head>
 
 <body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
@@ -272,7 +260,7 @@ images 文件夹主要拿来存放插件中需要用到的图片文件main.js是
             
             
               
-                编写chrome插件-bookmarks
+                react state定义的3种方式
               
             
           </h1>
@@ -284,8 +272,8 @@ images 文件夹主要拿来存放插件中需要用到的图片文件main.js是
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-11-09T21:03:11+08:00" content="2016-11-09">
-              2016-11-09
+            <time itemprop="dateCreated" datetime="2017-04-08T16:35:18+08:00" content="2017-04-08">
+              2017-04-08
             </time>
           </span>
 
@@ -295,8 +283,8 @@ images 文件夹主要拿来存放插件中需要用到的图片文件main.js是
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/11/09/编写chrome插件-bookmarks/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/09/编写chrome插件-bookmarks/" itemprop="commentsCount"></span>
+                <a href="/2017/04/08/react-state定义的3种方式/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/04/08/react-state定义的3种方式/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -319,13 +307,15 @@ images 文件夹主要拿来存放插件中需要用到的图片文件main.js是
       
 
       
-        <h3 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h3><h4 id="弥补chrome浏览器只能在书签管理器中才能进行对书签进行搜索，该插件可以直接在浏览器顶部进行搜索已有书签"><a href="#弥补chrome浏览器只能在书签管理器中才能进行对书签进行搜索，该插件可以直接在浏览器顶部进行搜索已有书签" class="headerlink" title="弥补chrome浏览器只能在书签管理器中才能进行对书签进行搜索，该插件可以直接在浏览器顶部进行搜索已有书签"></a>弥补chrome浏览器只能在书签管理器中才能进行对书签进行搜索，该插件可以直接在浏览器顶部进行搜索已有书签</h4><h4 id="简单的效果图"><a href="#简单的效果图" class="headerlink" title="简单的效果图"></a>简单的效果图</h4><p><img src="../img/search.png" alt=""></p>
-<h4 id="简单的目录结构"><a href="#简单的目录结构" class="headerlink" title="简单的目录结构"></a>简单的目录结构</h4><p><img src="../img/stuct.png" alt=""></p>
-<p>文件说明：</p>
-<p>images 文件夹主要拿来存放插件中需要用到的图片文件<br>main.js是整个插件的逻辑代码<br>manifest.json插件的配置文件<br>popup.html插件的页面结构文件<br>styles.css样式文件  </p>
-<p>写扩展最主要的就是配置manifest.json文件中的permissions属性获取chrome浏览器的权限<br>参考chrome开发者文档<a href="https://developer.chrome.com/extensions" target="_blank" rel="external">https://developer.chrome.com/extensions</a><br>360浏览器对chrome开发文档做了一个翻译<a href="http://open.chrome.360.cn/extension_dev/overview.html" target="_blank" rel="external">http://open.chrome.360.cn/extension_dev/overview.html</a></p>
-<h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><p>chrome浏览器-》菜单-》更多工具-》扩展程序-》勾选开发者模式-》加载已解压的扩展程序<br>加载后就可以开始测试了，如果需要断点调试可以新建一个tab页面，然后输入<a href="chrome-extension://你的扩展id/popup.html" target="_blank" rel="external">chrome-extension://你的扩展id/popup.html</a></p>
-<p>具体代码见github<br><a href="https://github.com/phobal/b-note/tree/master/bookmarks" target="_blank" rel="external">https://github.com/phobal/b-note/tree/master/bookmarks</a></p>
+        <h3 id="react中state定义的3种方式"><a href="#react中state定义的3种方式" class="headerlink" title="react中state定义的3种方式"></a>react中state定义的3种方式</h3><p>大家都知道的在react组件中，我们通过props和state来控制数据，props是在父组件中被指定的<br>而且一经指定，在被指定的组件的生命周期内是不能够进行改变的，对于需要改变的数据，只能依托<br>state来进行处理了，所以就引申出了一个话题，如何初始化state呢？<br>我根据react的发展历程来进行总结出3中写法。</p>
+<h4 id="ES5-在getInitialState中进行设置"><a href="#ES5-在getInitialState中进行设置" class="headerlink" title="ES5 在getInitialState中进行设置"></a>ES5 在getInitialState中进行设置</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> MyComponent = React.createClass(&#123;</div><div class="line">    <span class="attr">getInitialState</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        disable:<span class="literal">false</span></div><div class="line">    &#125;</div><div class="line">    render:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="keyword">return</span> (</div><div class="line">            &lt;button disable=&#123;this.state.disable&#125;&gt;submit&lt;\/button&gt;</div><div class="line">        )</div><div class="line">    &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>这种写法是es5的写法，比较老了，不推荐使用这种方式写，当时出现这种方式主要是因为webpack和  babel还未兴起，现在他们大行其道，自然大家更倾向于es6的写法了。</p>
+<h4 id="ES6-在constructor中进行设置"><a href="#ES6-在constructor中进行设置" class="headerlink" title="ES6 在constructor中进行设置"></a>ES6 在constructor中进行设置</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyComponent</span> <span class="keyword">extends</span> <span class="title">PureComponent</span> </span>&#123;</div><div class="line">    <span class="keyword">constructor</span>(props)&#123;</div><div class="line">        <span class="keyword">super</span>(props)</div><div class="line">        <span class="keyword">this</span>.state = &#123;</div><div class="line">            <span class="attr">disable</span>:<span class="literal">false</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    render()&#123;</div><div class="line">        <span class="keyword">return</span> (</div><div class="line">            &lt;button disable=&#123;this.state.disable&#125;&gt;submit&lt;\/button&gt;</div><div class="line">        )</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>es6提出了class的概念，constructor作为一个类的入口，每次初始化的时候都会执行constructor中的代码，所以我们可以将state写在构造函数中，这个也是react官方推荐的写法。</p>
+<h4 id="ES7-定义实例属性"><a href="#ES7-定义实例属性" class="headerlink" title="ES7 定义实例属性"></a>ES7 定义实例属性</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyComponent</span> <span class="keyword">extends</span> <span class="title">PureComponent</span> </span>&#123;</div><div class="line">    state = &#123;</div><div class="line">        <span class="attr">disable</span>:<span class="literal">false</span></div><div class="line">    &#125;</div><div class="line">    render()&#123;</div><div class="line">        <span class="keyword">return</span> (</div><div class="line">            &lt;button disable=&#123;this.state.disable&#125;&gt;&lt;\/button&gt;</div><div class="line">        )</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>ES6中不支持在class中定义类的属性，只能定义方法，例如：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span></span>&#123;</div><div class="line">    name:a,</div><div class="line">    method()&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">Foo.name     <span class="comment">//undefined</span></div></pre></td></tr></table></figure></p>
+<p>而在ES7的提案中允许通过“=”赋值的方法设置类的实例属性。</p>
+<p>&lt;完&gt;</p>
 
       
     </div>
@@ -351,17 +341,13 @@ images 文件夹主要拿来存放插件中需要用到的图片文件main.js是
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/11/09/使用yeoman自动构建chrome插件目录结构/" rel="next" title="使用yeoman自动构建chrome插件目录结构">
-                <i class="fa fa-chevron-left"></i> 使用yeoman自动构建chrome插件目录结构
+              <a href="/2017/02/19/云服务器配置杂记/" rel="next" title="云服务器配置杂记">
+                <i class="fa fa-chevron-left"></i> 云服务器配置杂记
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/11/11/常用的vs-code-扩展程序/" rel="prev" title="常用的vs code 扩展程序">
-                常用的vs code 扩展程序 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -387,8 +373,8 @@ images 文件夹主要拿来存放插件中需要用到的图片文件main.js是
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/11/09/编写chrome插件-bookmarks/"
-           data-title="编写chrome插件-bookmarks" data-url="http://phobal.geithub.io/2016/11/09/编写chrome插件-bookmarks/">
+      <div class="ds-thread" data-thread-key="2017/04/08/react-state定义的3种方式/"
+           data-title="react state定义的3种方式" data-url="http://phobal.geithub.io/2017/04/08/react-state定义的3种方式/">
       </div>
     
   </div>
@@ -508,7 +494,7 @@ images 文件夹主要拿来存放插件中需要用到的图片文件main.js是
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#目的"><span class="nav-number">1.</span> <span class="nav-text">目的</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#弥补chrome浏览器只能在书签管理器中才能进行对书签进行搜索，该插件可以直接在浏览器顶部进行搜索已有书签"><span class="nav-number">1.1.</span> <span class="nav-text">弥补chrome浏览器只能在书签管理器中才能进行对书签进行搜索，该插件可以直接在浏览器顶部进行搜索已有书签</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#简单的效果图"><span class="nav-number">1.2.</span> <span class="nav-text">简单的效果图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#简单的目录结构"><span class="nav-number">1.3.</span> <span class="nav-text">简单的目录结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#测试"><span class="nav-number">1.4.</span> <span class="nav-text">测试</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#react中state定义的3种方式"><span class="nav-number">1.</span> <span class="nav-text">react中state定义的3种方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ES5-在getInitialState中进行设置"><span class="nav-number">1.1.</span> <span class="nav-text">ES5 在getInitialState中进行设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ES6-在constructor中进行设置"><span class="nav-number">1.2.</span> <span class="nav-text">ES6 在constructor中进行设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ES7-定义实例属性"><span class="nav-number">1.3.</span> <span class="nav-text">ES7 定义实例属性</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
