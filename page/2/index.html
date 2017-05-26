@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="React," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -84,55 +84,15 @@
 
 
 
-<meta name="description" content="生命周期方法组件的生命周期主要包括以下几种情况
-
-组件被实例化的时候
-
-组件属性改变的时候
-
-组件状态被改变的时候
-
-组件被销毁的时候
-
-
-1 componentWillMount1void componentWillMount()
-条件：第一次渲染阶段在调用 render 方法前会被调用作用：该方法在整个组件生命周期只会被调用一次，所以可以利用该方法做一些组件内部的初始化工作
-2 compone">
-<meta property="og:type" content="article">
-<meta property="og:title" content="React生命周期">
-<meta property="og:url" content="http://phobal.geithub.io/2016/11/02/React/index.html">
+<meta name="description" content="web developer">
+<meta property="og:type" content="website">
+<meta property="og:title" content="phobal`s blogs">
+<meta property="og:url" content="http://phobal.geithub.io/page/2/index.html">
 <meta property="og:site_name" content="phobal`s blogs">
-<meta property="og:description" content="生命周期方法组件的生命周期主要包括以下几种情况
-
-组件被实例化的时候
-
-组件属性改变的时候
-
-组件状态被改变的时候
-
-组件被销毁的时候
-
-
-1 componentWillMount1void componentWillMount()
-条件：第一次渲染阶段在调用 render 方法前会被调用作用：该方法在整个组件生命周期只会被调用一次，所以可以利用该方法做一些组件内部的初始化工作
-2 compone">
-<meta property="og:updated_time" content="2016-11-07T16:54:24.000Z">
+<meta property="og:description" content="web developer">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="React生命周期">
-<meta name="twitter:description" content="生命周期方法组件的生命周期主要包括以下几种情况
-
-组件被实例化的时候
-
-组件属性改变的时候
-
-组件状态被改变的时候
-
-组件被销毁的时候
-
-
-1 componentWillMount1void componentWillMount()
-条件：第一次渲染阶段在调用 render 方法前会被调用作用：该方法在整个组件生命周期只会被调用一次，所以可以利用该方法做一些组件内部的初始化工作
-2 compone">
+<meta name="twitter:title" content="phobal`s blogs">
+<meta name="twitter:description" content="web developer">
 
 
 
@@ -153,10 +113,10 @@
 
 
 
-  <link rel="canonical" href="http://phobal.geithub.io/2016/11/02/React/"/>
+  <link rel="canonical" href="http://phobal.geithub.io/page/2/"/>
 
 
-  <title> React生命周期 | phobal`s blogs </title>
+  <title> phobal`s blogs </title>
 </head>
 
 <body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
@@ -177,7 +137,9 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left page-post-detail ">
+  <div class="container one-collumn sidebar-position-left 
+   page-home 
+ ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
@@ -274,9 +236,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-
-  <div id="posts" class="posts-expand">
+  <section id="posts" class="posts-expand">
     
+      
 
   
   
@@ -296,7 +258,10 @@
             
             
               
-                React生命周期
+                
+                <a class="post-title-link" href="/2016/11/02/React/" itemprop="url">
+                  React生命周期
+                </a>
               
             
           </h1>
@@ -362,7 +327,9 @@
       
 
       
-        <h2 id="生命周期方法"><a href="#生命周期方法" class="headerlink" title="生命周期方法"></a>生命周期方法</h2><p>组件的生命周期主要包括以下几种情况</p>
+        
+          
+            <h2 id="生命周期方法"><a href="#生命周期方法" class="headerlink" title="生命周期方法"></a>生命周期方法</h2><p>组件的生命周期主要包括以下几种情况</p>
 <ul>
 <li><p>组件被实例化的时候</p>
 </li>
@@ -391,59 +358,40 @@
 <h5 id="6-componentDidUpdate"><a href="#6-componentDidUpdate" class="headerlink" title="6 componentDidUpdate"></a>6 componentDidUpdate</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">componentDidUpdate</span><span class="params">(</span></span></div><div class="line">  object prevProps, object prevState</div><div class="line">)</div></pre></td></tr></table></figure>
 <p>条件：更新被应用到 DOM 之后<br>用处：可以执行组件更新过后的操作</p>
 
+          
+        
       
     </div>
 
     <div>
       
-        
-
-      
     </div>
 
     <div>
-      
-        
-
       
     </div>
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/React/" rel="tag">#React</a>
-          
-        </div>
+
       
 
       
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-          </div>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/11/06/mongodb常用命令/" rel="prev" title="mongodb常用命令">
-                mongodb常用命令 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
       
-
-      
+        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
+    
+  </section>
 
-    <div class="post-spread">
-      
-    </div>
-  </div>
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
+
 
 
           </div>
@@ -451,14 +399,6 @@
 
 
           
-  <div class="comments" id="comments">
-    
-      <div class="ds-thread" data-thread-key="2016/11/02/React/"
-           data-title="React生命周期" data-url="http://phobal.geithub.io/2016/11/02/React/">
-      </div>
-    
-  </div>
-
 
         </div>
         
@@ -478,17 +418,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel ">
+      <section class="site-overview sidebar-panel  sidebar-panel-active ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -567,17 +498,6 @@
 
       </section>
 
-      
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-            
-              
-            
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#生命周期方法"><span class="nav-number">1.</span> <span class="nav-text">生命周期方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-componentWillMount"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">1 componentWillMount</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-componentDidMount"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">2 componentDidMount</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-componentWillReceiveProps-newProps"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">3 componentWillReceiveProps(newProps)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-shouldComponentUpdate-nextProps-nextState"><span class="nav-number">1.0.0.4.</span> <span class="nav-text">4 shouldComponentUpdate(nextProps, nextState)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-componentWillUpdate"><span class="nav-number">1.0.0.5.</span> <span class="nav-text">5 componentWillUpdate</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-componentDidUpdate"><span class="nav-number">1.0.0.6.</span> <span class="nav-text">6 componentDidUpdate</span></a></li></ol></li></ol></li></ol></li></ol></div>
-            
-          </div>
-        </section>
       
 
     </div>
@@ -681,10 +601,6 @@
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
-
-
 
   
 
