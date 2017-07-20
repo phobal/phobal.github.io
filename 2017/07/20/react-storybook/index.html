@@ -1,0 +1,683 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="react storybook," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="React Storybook官方说法
+Storybook is a development environment for UI components. It allows you to browse a component library, view the different states of each component, and interactively develop and t">
+<meta property="og:type" content="article">
+<meta property="og:title" content="react-storybook 简单入门">
+<meta property="og:url" content="http://phobal.geithub.io/2017/07/20/react-storybook/index.html">
+<meta property="og:site_name" content="phobal`s blogs">
+<meta property="og:description" content="React Storybook官方说法
+Storybook is a development environment for UI components. It allows you to browse a component library, view the different states of each component, and interactively develop and t">
+<meta property="og:image" content="http://phobal.geithub.io/../img/demo.gif">
+<meta property="og:updated_time" content="2017-07-20T18:07:34.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="react-storybook 简单入门">
+<meta name="twitter:description" content="React Storybook官方说法
+Storybook is a development environment for UI components. It allows you to browse a component library, view the different states of each component, and interactively develop and t">
+<meta name="twitter:image" content="http://phobal.geithub.io/../img/demo.gif">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://phobal.geithub.io/2017/07/20/react-storybook/"/>
+
+
+  <title> react-storybook 简单入门 | phobal`s blogs </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">phobal`s blogs</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                react-storybook 简单入门
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-07-20T10:42:07+08:00" content="2017-07-20">
+              2017-07-20
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/07/20/react-storybook/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/07/20/react-storybook/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="React-Storybook"><a href="#React-Storybook" class="headerlink" title="React Storybook"></a>React Storybook</h2><p><a href="https://github.com/storybooks/storybook#storybook" target="_blank" rel="external">官方说法</a></p>
+<p><em>Storybook is a development environment for UI components. It allows you to browse a component library, view the different states of each component, and interactively develop and test components.</em>  </p>
+<p>通俗的说  </p>
+<p>Storybook 为UI组件开发提供了一个开发环境，你可以改变组件不同状态、不同交互，通过可视化的界面来查看组件的形态。说白了就是一个通过可视化的界面来写测试。<br></p>
+<h3 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h3><p><img src="../img/demo.gif" alt=""></p>
+<h3 id="顾虑"><a href="#顾虑" class="headerlink" title="顾虑"></a>顾虑</h3><p>在引入一个新库之前你可能最担心的是这玩意儿会不会对你现有的代码产生影响，storybook也考虑到你的顾虑，你可以放心地使用，因为它完全独立与你的组件库  </p>
+<p>├── .storybook<br>│   ├── config.js<br>│   └── webpack.config.js<br>├── stories<br>│   ├── your_first_story.js<br>│   └── index.js<br>├── src<br>│   ├── component<br>│   ├──—- component.js<br>│   └──—- index.js  </p>
+<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><p>1、全局安装storybook cli命令行工具  </p>
+<p><code>npm i -g @storybook/cli</code>  </p>
+<p>2、进入到你需要创建storybook的项目中去，执行  </p>
+<p><code>getstorybook</code></p>
+<p>3、执行完上面命令后会在你的项目中生成 <code>.storybook</code> 和 <code>stories</code> 2个文件夹，并在     <code>package.json</code> 的scripts中生成  </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="string">"test:unit:watch"</span>: <span class="string">"cross-env NODE_ENV=test babel-node test/watch.js unit"</span>,</div><div class="line"><span class="string">"storybook"</span>: <span class="string">"start-storybook -p 6006"</span>,</div><div class="line"><span class="string">"build-storybook"</span>: <span class="string">"build-storybook"</span></div></pre></td></tr></table></figure>
+<p>3个命令，然后执行</p>
+<p><code>npm run storybook</code></p>
+<p>就会在启动一个端口为6006的服务，然后在浏览器中打开<localhost:6006>就可以看到默认的界面了。</localhost:6006></p>
+<h3 id="写故事"><a href="#写故事" class="headerlink" title="写故事"></a>写故事</h3><p>接下来的工作就是编写你的story！</p>
+<p>先来看stories目录下官方给的示例代码  </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/** stories/index.js **/</span>  </div><div class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</div><div class="line"></div><div class="line"><span class="keyword">import</span> &#123; storiesOf &#125; <span class="keyword">from</span> <span class="string">'@storybook/react'</span>;</div><div class="line"><span class="keyword">import</span> &#123; action &#125; <span class="keyword">from</span> <span class="string">'@storybook/addon-actions'</span>;</div><div class="line"><span class="keyword">import</span> &#123; linkTo &#125; <span class="keyword">from</span> <span class="string">'@storybook/addon-links'</span>;</div><div class="line"></div><div class="line"><span class="keyword">import</span> &#123; Button, Welcome &#125; <span class="keyword">from</span> <span class="string">'@storybook/react/demo'</span>;</div><div class="line"></div><div class="line">storiesOf(<span class="string">'Welcome'</span>, <span class="built_in">module</span>).add(<span class="string">'to Storybook'</span>, () =&gt; &lt;Welcome showApp=&#123;linkTo('Button')&#125; /&gt;);</div><div class="line"></div><div class="line">storiesOf('Button', module)</div><div class="line">  .add('with text', () =&gt; &lt;Button onClick=&#123;action('clicked')&#125;&gt;Hello Button&lt;\/Button&gt;)</div><div class="line">  .add('with some emoji', () =&gt; &lt;Button onClick=&#123;action('clicked')&#125;&gt;😀 😎 👍 💯&lt;/Button&gt;);</div></pre></td></tr></table></figure>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>在编写好了 <code>Story</code> 之后需要告诉 <code>Storybook</code> 应该如何加载，需要进行一些简单的配置，只要添加如下类似的内容到<code>·.storybook/config.js</code> 中 </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> &#123; configure &#125; <span class="keyword">from</span> <span class="string">'@storybook/react'</span>;</div><div class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">loadStories</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">require</span>(<span class="string">'../stories'</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line">configure(loadStories, <span class="built_in">module</span>);</div></pre></td></tr></table></figure>
+<h3 id="addDecorator"><a href="#addDecorator" class="headerlink" title="addDecorator"></a>addDecorator</h3><p>在使用material-ui的时候所有的组件都必须给定 <code>theme context</code> ,我们不可能在每一个测试组件中都不给它外面套一层定义 <code>context</code> 的父组件,所以 <code>stroybook</code> 提供了一个 <code>addDecorator</code> 的方法，可以将 <code>MuiThemeProvider</code>作用于测试组件之上,配置如下:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> &#123; configure, addDecorator &#125; <span class="keyword">from</span> <span class="string">'@storybook/react'</span>;</div><div class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</div><div class="line"></div><div class="line"><span class="comment">// 使用 material-ui 需配置</span></div><div class="line"><span class="keyword">import</span> getMuiTheme <span class="keyword">from</span> <span class="string">'material-ui/styles/getMuiTheme'</span>;</div><div class="line"><span class="keyword">import</span> MuiThemeProvider <span class="keyword">from</span> <span class="string">'material-ui/styles/MuiThemeProvider'</span>;</div><div class="line"></div><div class="line">addDecorator(<span class="function">(<span class="params">getStory</span>) =&gt;</span> (</div><div class="line">    &lt;MuiThemeProvider muiTheme=&#123;getMuiTheme()&#125;&gt;</div><div class="line">        &#123;getStory()&#125;</div><div class="line">    &lt;/MuiThemeProvider&gt;</div><div class="line">))</div><div class="line"><span class="keyword">import</span> injectTapEventPlugin <span class="keyword">from</span> <span class="string">'react-tap-event-plugin'</span>;</div><div class="line">injectTapEventPlugin();</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">loadStories</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">require</span>(<span class="string">'../stories'</span>);</div><div class="line">  <span class="built_in">require</span>(<span class="string">'../stories/datepicker_single'</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line">configure(loadStories, <span class="built_in">module</span>);</div></pre></td></tr></table></figure></p>
+<p>你还可以在其中配置redux等来管理状态</p>
+<p>参考</p>
+<p><a href="https://github.com/storybooks/storybook" target="_blank" rel="external">官方github地址</a><br><a href="https://www.youtube.com/watch?v=PF0Vi-iIyoo" target="_blank" rel="external">React Conf 2017 Thuret 分享视频</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/react-storybook/" rel="tag">#react storybook</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/04/一些小技巧/" rel="next" title="一些小技巧">
+                <i class="fa fa-chevron-left"></i> 一些小技巧
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/07/20/react-storybook/"
+           data-title="react-storybook 简单入门" data-url="http://phobal.geithub.io/2017/07/20/react-storybook/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="phobal" />
+          <p class="site-author-name" itemprop="name">phobal</p>
+          <p class="site-description motion-element" itemprop="description">web developer</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/phobal" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/phoneball" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/phoneball" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#React-Storybook"><span class="nav-number">1.</span> <span class="nav-text">React Storybook</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Demo"><span class="nav-number">1.1.</span> <span class="nav-text">Demo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#顾虑"><span class="nav-number">1.2.</span> <span class="nav-text">顾虑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用方法"><span class="nav-number">1.3.</span> <span class="nav-text">使用方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#写故事"><span class="nav-number">1.4.</span> <span class="nav-text">写故事</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置"><span class="nav-number">1.5.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#addDecorator"><span class="nav-number">1.6.</span> <span class="nav-text">addDecorator</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">phobal</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"phobal"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

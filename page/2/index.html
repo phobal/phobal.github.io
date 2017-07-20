@@ -247,6 +247,144 @@
   
   
 
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/11/09/使用yeoman自动构建chrome插件目录结构/" itemprop="url">
+                  使用yeoman自动构建chrome插件目录结构
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-11-09T20:58:17+08:00" content="2016-11-09">
+              2016-11-09
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/11/09/使用yeoman自动构建chrome插件目录结构/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/09/使用yeoman自动构建chrome插件目录结构/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h3><h4 id="为了减少每次编写插件时都去重新建一次目录"><a href="#为了减少每次编写插件时都去重新建一次目录" class="headerlink" title="为了减少每次编写插件时都去重新建一次目录"></a>为了减少每次编写插件时都去重新建一次目录</h4><h3 id="yeoman项目的目录结构"><a href="#yeoman项目的目录结构" class="headerlink" title="yeoman项目的目录结构"></a>yeoman项目的目录结构</h3><p><img src="../img/generator.png" alt=""><br>generators目录下的文件结构<br><img src="../img/generator1.png" alt=""></p>
+<p>templates存放最终生成的文件结构（下图的样子）<br>index.js 逻辑代码 </p>
+<h3 id="最终生成的目录结构"><a href="#最终生成的目录结构" class="headerlink" title="最终生成的目录结构"></a>最终生成的目录结构</h3><p><img src="../img/stuct.png" alt=""></p>
+<h3 id="Yeoman"><a href="#Yeoman" class="headerlink" title="Yeoman"></a>Yeoman</h3><blockquote>
+<p>有一种技术可以提高我们的工作效率，可以让我们专心做我们擅长的事，可以屏蔽复杂性，可以规范我们的架构和我们的代码，可以让我们的享受编程的乐趣。Yeoman可以做到。  </p>
+<p>很多年以前，rails刚刚出世，伴随着一个新的名词“脚手架(scaffolding)”出现了。脚手架是一种提高开发效率的工具的代名词。随后，各种编程语言都开始实现自己的“脚手架”工具。Maven重新构造了Java的世界，改变了几千万的开发者对于Java项目构建的认识。Yeoman在Javascript领域正做着同样的事情。</p>
+</blockquote>
+<p>官网 <a href="http://yeoman.io/" target="_blank" rel="external">http://yeoman.io/</a></p>
+<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><p>1、全局安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install yo  -g</div></pre></td></tr></table></figure>
+<p>2、本地安装<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install yeoman-generator --save</div></pre></td></tr></table></figure></p>
+<p>3、生成package.json文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm init</div></pre></td></tr></table></figure>
+<p>最终代码应该是这样的<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="string">"name"</span>: <span class="string">"generator-yo-chrome-extension"</span>,</div><div class="line">  <span class="string">"version"</span>: <span class="string">"0.1.0"</span>,</div><div class="line">  <span class="string">"description"</span>: <span class="string">""</span>,</div><div class="line">  <span class="string">"files"</span>: [</div><div class="line">    <span class="string">'generators'</span></div><div class="line">  ],</div><div class="line">  <span class="string">"keywords"</span>: [<span class="string">"yeoman-generator"</span>],</div><div class="line">  <span class="string">"dependencies"</span>: &#123;</div><div class="line">    <span class="string">"yeoman-generator"</span>: <span class="string">"^0.24.1"</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<ul>
+<li>关键点：<br>a、files 就是生成项目的文件，这个必须的有,我这里文件名是generators（这里必须得一致才行，不然在往npm上传的时候不会将这个文件夹给上传上去)<br>b、keywords 关键字中必须得包含yeoman-generator<br>c、dependencies项目必须依赖yeoman-generator<br>4、编写脚手架核心代码<br>index.js核心代码<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">  writing() &#123;</div><div class="line">    <span class="keyword">this</span>.fs.copy(</div><div class="line">      <span class="keyword">this</span>.templatePath(<span class="string">'main.js'</span>),</div><div class="line">      <span class="keyword">this</span>.destinationPath(<span class="string">'main.js'</span>)</div><div class="line">    );</div><div class="line">    <span class="keyword">this</span>.fs.copy(</div><div class="line">      <span class="keyword">this</span>.templatePath(<span class="string">'styles.css'</span>),</div><div class="line">      <span class="keyword">this</span>.destinationPath(<span class="string">'styles.css'</span>)</div><div class="line">    );</div><div class="line">    <span class="keyword">this</span>.fs.copy(</div><div class="line">      <span class="keyword">this</span>.templatePath(<span class="string">'manifest.json'</span>),</div><div class="line">      <span class="keyword">this</span>.destinationPath(<span class="string">'manifest.json'</span>)</div><div class="line">    );</div><div class="line">    <span class="keyword">this</span>.fs.copy(</div><div class="line">      <span class="keyword">this</span>.templatePath(<span class="string">'popup.html'</span>),</div><div class="line">      <span class="keyword">this</span>.destinationPath(<span class="string">'popup.html'</span>)</div><div class="line">    );</div><div class="line">    mkdirp(<span class="string">'images'</span>);</div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>5、本地测试<br>在package.json同级的目录下通过link的方式<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm link</div></pre></td></tr></table></figure></p>
+<p>将脚手架工具安装到安装到本地，任意新建一个文件夹，在该文件夹下测试是否能成功生成</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ yo your-generator-name</div></pre></td></tr></table></figure>
+<p>比如</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ yo yo-chrome-extension</div></pre></td></tr></table></figure>
+<p>6、发布</p>
+<p>当测试没有问题了，可以上传到npm上  </p>
+<p>步骤  </p>
+<ul>
+<li>a、创建用户<br>在<a href="https://www.npmjs.com/" target="_blank" rel="external">https://www.npmjs.com/</a>注册  </li>
+<li><p>b、添加用户  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm adduser</div></pre></td></tr></table></figure>
+</li>
+<li><p>c、上传</p>
+<pre><code class="bash">$ npm publish
+</code></pre>
+</li>
+</ul>
+<p>源码：<a href="https://github.com/phobal/b-note/tree/master/generator-yo-chrome-extension" target="_blank" rel="external">https://github.com/phobal/b-note/tree/master/generator-yo-chrome-extension</a></p>
+<p>完</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
   <article class="post post-type-tags " itemscope itemtype="//schema.org/Article">
 
     
@@ -413,7 +551,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">11</span>
+              <span class="site-state-item-count">12</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -430,7 +568,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
