@@ -259,6 +259,163 @@
             
               
                 
+                <a class="post-title-link" href="/2017/07/26/webpack1-x-到-webpack2-x/" itemprop="url">
+                  从webpack1.x 到 webpack2.x
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-07-26T09:37:26+08:00" content="2017-07-26">
+              2017-07-26
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/07/26/webpack1-x-到-webpack2-x/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/07/26/webpack1-x-到-webpack2-x/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="从webpack1-x-到-webpack2-x"><a href="#从webpack1-x-到-webpack2-x" class="headerlink" title="从webpack1.x 到 webpack2.x"></a>从webpack1.x 到 webpack2.x</h1><p>这周对去年年末做的一个产品准备发布出去，那时候写的脚手架工具是基于webpack1.13.2，还不支持动态导入import，之前都是将所有的代码打在一个bundle.js 中，首次加载的时间差不多要4-5s, 升级到2.0以后使用import方式，配合react-router的动态路由，将系统按照路由进行分割，这时候首页的加载速度差不多在2s左右，下面是我在升级过程中整理的一些笔记。</p>
+<h2 id="resolve"><a href="#resolve" class="headerlink" title="resolve"></a>resolve</h2><h3 id="resolve-root-resolve-fallback-resolve-modulesDirectories"><a href="#resolve-root-resolve-fallback-resolve-modulesDirectories" class="headerlink" title="resolve.root, resolve.fallback, resolve.modulesDirectories"></a>resolve.root, resolve.fallback, resolve.modulesDirectories</h3><p>上面这些写法被一个单独的写法 resolve.modules 取代  </p>
+<p> before  </p>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">    <span class="attr">resolveLoader</span>: &#123;</div><div class="line">        <span class="attr">fallback</span>: <span class="string">'path.join(__dirname, '</span>node_modules<span class="string">')'</span>,</div><div class="line">        <span class="attr">modulesDirectories</span>: [ path.join(__dirname, <span class="string">'node_modules'</span>) ],</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p> after </p>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">    <span class="attr">resolve</span>: &#123;</div><div class="line">       <span class="attr">modules</span>: [ <span class="string">"node_modules"</span>]</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="resolve-extensions"><a href="#resolve-extensions" class="headerlink" title="resolve.extensions"></a>resolve.extensions</h3><p> 此选项不再需要传一个空字符串。此行为被迁移到 resolve.enforceExtension</p>
+<p> before </p>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">    <span class="attr">resolve</span>: &#123;</div><div class="line">        <span class="attr">extensions</span>: [<span class="string">''</span>, <span class="string">'.js'</span>, <span class="string">'.jsx'</span>, <span class="string">'.ts'</span>, <span class="string">'.tsx'</span>, <span class="string">'.json'</span>],</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p> after </p>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">     <span class="attr">resolve</span>: &#123;</div><div class="line">         <span class="attr">extensions</span>: [<span class="string">'.js'</span>, <span class="string">'.jsx'</span>, <span class="string">'.ts'</span>, <span class="string">'.tsx'</span>, <span class="string">'.json'</span>],</div><div class="line">     &#125;</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<h2 id="module"><a href="#module" class="headerlink" title="module"></a>module</h2><h3 id="module-loaders-改为-module-rules"><a href="#module-loaders-改为-module-rules" class="headerlink" title="module.loaders 改为 module.rules"></a>module.loaders 改为 module.rules</h3><p>旧的 loader 配置被更强大的 rules 系统取代，后者允许配置 loader 以及其他更多选项。 为了兼容旧版，module.loaders 语法仍然有效，旧的属性名依然可以被解析。 新的命名约定更易于理解，并且是升级配置使用 module.rules 的好理由</p>
+<p>before </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">    <span class="attr">module</span>: &#123;</div><div class="line">        <span class="attr">loaders</span>: [</div><div class="line">            &#123;</div><div class="line">                <span class="attr">test</span>: <span class="regexp">/\.tsx?$/</span>,</div><div class="line">                <span class="attr">loader</span>: <span class="string">'ts-loader'</span></div><div class="line">            &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>after</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">    <span class="attr">module</span>: &#123;</div><div class="line">        <span class="attr">rules</span>: [</div><div class="line">            &#123;</div><div class="line">                <span class="attr">test</span>: <span class="regexp">/\.tsx?$/</span>,</div><div class="line">                <span class="attr">use</span>: &#123;</div><div class="line">                    <span class="attr">loader</span>: <span class="string">'ts-loader'</span></div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="链式loader"><a href="#链式loader" class="headerlink" title="链式loader"></a>链式loader</h3><p>就像在 webpack 1 中，loader 可以链式调用，上一个 loader 的输出被作为输入传给下一个 loader。 使用 rule.use 配置选项，use 可以设置为一个 loader 数组。 在 webpack 1 中，loader 通常被用 ! 连写。这一写法在 webpack 2 中只在使用旧的选项 module.loaders 时才有效</p>
+<p>before</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">    <span class="attr">module</span>: &#123;</div><div class="line">        <span class="attr">loaders</span>: [</div><div class="line">            &#123;</div><div class="line">                <span class="attr">test</span>: <span class="regexp">/\.css$/</span>,</div><div class="line">                <span class="attr">loader</span>: <span class="string">'style-loader!css-loader!postcss-loader'</span></div><div class="line">            &#125;</div><div class="line">        ]</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>after</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">    <span class="attr">module</span>: &#123;</div><div class="line">        <span class="attr">rules</span>: [</div><div class="line">            &#123;</div><div class="line">                <span class="attr">test</span>: <span class="regexp">/\.css$/</span>,</div><div class="line">                <span class="attr">use</span>: [</div><div class="line">                    <span class="string">'style-loader'</span>,</div><div class="line">                    <span class="string">'css-loader'</span>,</div><div class="line">                    <span class="string">'postcss-loader'</span></div><div class="line">                ]</div><div class="line">            &#125;</div><div class="line">        ]</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="取消「在模块名中自动添加-loader-后缀」"><a href="#取消「在模块名中自动添加-loader-后缀」" class="headerlink" title="取消「在模块名中自动添加 -loader 后缀」"></a>取消「在模块名中自动添加 -loader 后缀」</h3><p>before</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">    <span class="attr">module</span>: &#123;</div><div class="line">        <span class="attr">loaders</span>: [</div><div class="line">            &#123;</div><div class="line">                <span class="attr">test</span>: <span class="regexp">/\.css$/</span>,</div><div class="line">                <span class="attr">loader</span>: <span class="string">'style!css!postcss'</span></div><div class="line">            &#125;</div><div class="line">        ]</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>after</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">    <span class="attr">module</span>: &#123;</div><div class="line">        <span class="attr">rules</span>: [</div><div class="line">            &#123;</div><div class="line">                <span class="attr">test</span>: <span class="regexp">/\.css$/</span>,</div><div class="line">                <span class="attr">use</span>: [</div><div class="line">                    <span class="string">'style-loader'</span>,</div><div class="line">                    <span class="string">'css-loader'</span>,</div><div class="line">                    <span class="string">'postcss-loader'</span></div><div class="line">                ]</div><div class="line">            &#125;</div><div class="line">        ]</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这么改的<a href="https://github.com/webpack/webpack/issues/2986" target="_blank" rel="external">原因</a></p>
+<h3 id="json-loader-不再需要手动添加"><a href="#json-loader-不再需要手动添加" class="headerlink" title="json-loader 不再需要手动添加"></a>json-loader 不再需要手动添加</h3><p>如果没有为 JSON 文件配置 loader，webpack 将自动尝试通过 json-loader 加载 JSON 文件</p>
+<p>这么做的<a href="https://github.com/webpack/webpack/issues/3363" target="_blank" rel="external">目的</a>主要是消除 webpack、 nodejs和 browserify之间的差异</p>
+<h3 id="配置中的-loader-默认相对于-context-进行解析"><a href="#配置中的-loader-默认相对于-context-进行解析" class="headerlink" title="配置中的 loader 默认相对于 context 进行解析"></a>配置中的 loader 默认相对于 context 进行解析</h3><p>在 webpack 1 中，默认配置下 loader 解析相对于被匹配的文件。然而，在 webpack 2 中，默认配置下 loader 解析相对于 context 选项。</p>
+<p>这解决了「在使用 npm link 或引用 context 上下文目录之外的模块时，loader 所导致的模块重复载入」的问题。</p>
+<h2 id="Plugin-插件"><a href="#Plugin-插件" class="headerlink" title="Plugin 插件"></a>Plugin 插件</h2><h3 id="UglifyJsPlugin-sourceMap"><a href="#UglifyJsPlugin-sourceMap" class="headerlink" title="UglifyJsPlugin sourceMap"></a>UglifyJsPlugin sourceMap</h3><p>UglifyJsPlugin 的 sourceMap 选项现在默认为 false 而不是 true。这意味着如果你在压缩代码时启用了 source map，或者想要让 uglifyjs 的警告能够对应到正确的代码行，你需要将 UglifyJsPlugin 的 sourceMap 设为 true</p>
+<p>before<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">  <span class="attr">devtool</span>: <span class="string">"source-map"</span>,</div><div class="line">  <span class="attr">plugins</span>: [</div><div class="line">    <span class="keyword">new</span> UglifyJsPlugin()</div><div class="line">  ]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>after<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">  <span class="attr">devtool</span>: <span class="string">"source-map"</span>,</div><div class="line">  <span class="attr">plugins</span>: [</div><div class="line">    <span class="keyword">new</span> UglifyJsPlugin(&#123;</div><div class="line">      <span class="attr">sourceMap</span>: <span class="literal">true</span></div><div class="line">    &#125;)</div><div class="line">  ]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="UglifyJsPlugin-warnings"><a href="#UglifyJsPlugin-warnings" class="headerlink" title="UglifyJsPlugin warnings"></a>UglifyJsPlugin warnings</h3><p>UglifyJsPlugin 的 compress.warnings 选项现在默认为 false 而不是 true。 这意味着如果你想要看到 uglifyjs 的警告信息，你需要将 compress.warnings 设为 true</p>
+<p>before<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">  <span class="attr">devtool</span>: <span class="string">"source-map"</span>,</div><div class="line">  <span class="attr">plugins</span>: [</div><div class="line">    <span class="keyword">new</span> UglifyJsPlugin()</div><div class="line">  ]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>after<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">  <span class="attr">devtool</span>: <span class="string">"source-map"</span>,</div><div class="line">  <span class="attr">plugins</span>: [</div><div class="line">    <span class="keyword">new</span> UglifyJsPlugin(&#123;</div><div class="line">     <span class="attr">compress</span>: &#123;</div><div class="line">        <span class="attr">warnings</span>: <span class="literal">true</span></div><div class="line">     &#125;</div><div class="line">    &#125;)</div><div class="line">  ]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="UglifyJsPlugin-不再压缩-loaders"><a href="#UglifyJsPlugin-不再压缩-loaders" class="headerlink" title="UglifyJsPlugin 不再压缩 loaders"></a>UglifyJsPlugin 不再压缩 loaders</h3><p>UglifyJsPlugin 不再压缩 loaders。在未来很长一段时间里，需要通过设置 minimize:true 来压缩 loaders</p>
+<p>为了兼容旧的 loaders，loaders 可以通过插件来切换到压缩模式：</p>
+<p>before<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">  <span class="attr">ts</span>: &#123;</div><div class="line">    <span class="attr">compiler</span>: <span class="string">'ntypescript'</span>,</div><div class="line">    <span class="attr">configFileName</span>: <span class="string">'.tsconfig.json'</span>,</div><div class="line">  &#125;,</div><div class="line">  <span class="attr">postcss</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> [autoprefixer, precss, px2rem(PX2REM_OPTIONS)];</div><div class="line">  &#125;,</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>after<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">    <span class="attr">minimize</span>: <span class="literal">true</span>,</div><div class="line">    <span class="attr">plugins</span>: [</div><div class="line">        <span class="keyword">new</span> webpack.LoaderOptionsPlugin(&#123;</div><div class="line">            <span class="attr">options</span>: &#123;</div><div class="line">                <span class="attr">postcss</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">                    <span class="keyword">return</span> [autoprefixer, precss, px2rem(PX2REM_OPTIONS)];          </div><div class="line">                    &#125;,</div><div class="line">                <span class="attr">ts</span>: &#123;</div><div class="line">                    <span class="attr">compiler</span>: <span class="string">'ntypescript'</span>,</div><div class="line">                    <span class="attr">configFileName</span>: <span class="string">'.tsconfig.json'</span>,</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;)</div><div class="line">    ]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="移除-DedupePlugin"><a href="#移除-DedupePlugin" class="headerlink" title="移除 DedupePlugin"></a>移除 DedupePlugin</h3><h3 id="BannerPlugin-破坏性改动"><a href="#BannerPlugin-破坏性改动" class="headerlink" title="BannerPlugin - 破坏性改动"></a>BannerPlugin - 破坏性改动</h3><p>BannerPlugin 不再接受两个参数，而是只接受单独的 options 对象<br>before<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports =  &#123;</div><div class="line">    <span class="attr">plugins</span>: [</div><div class="line">       <span class="keyword">new</span> webpack.BannerPlugin(<span class="string">'Banner'</span>, &#123;<span class="attr">raw</span>: <span class="literal">true</span>, <span class="attr">entryOnly</span>: <span class="literal">true</span>&#125;);</div><div class="line">    ]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>after<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports =  &#123;</div><div class="line">    <span class="attr">plugins</span>: [</div><div class="line">       <span class="keyword">new</span> webpack.BannerPlugin(&#123;<span class="attr">banner</span>: <span class="string">'Banner'</span>, <span class="attr">raw</span>: <span class="literal">true</span>, <span class="attr">entryOnly</span>: <span class="literal">true</span>&#125;);</div><div class="line">    ]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="默认加载-OccurrenceOrderPlugin"><a href="#默认加载-OccurrenceOrderPlugin" class="headerlink" title="默认加载 OccurrenceOrderPlugin"></a>默认加载 OccurrenceOrderPlugin</h3><p>before<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">    <span class="attr">plugins</span>: [</div><div class="line">        <span class="keyword">new</span> webpack.optimize.DedupePlugin(),</div><div class="line">        <span class="keyword">new</span> webpack.optimize.OccurrenceOrderPlugin(),</div><div class="line">        <span class="keyword">new</span> webpack.NoEmitOnErrorsPlugin(),</div><div class="line">    ]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>after<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">    <span class="attr">plugins</span>: [</div><div class="line">        <span class="comment">//new webpack.optimize.DedupePlugin(),</span></div><div class="line">        <span class="comment">//new webpack.optimize.OccurrenceOrderPlugin(),</span></div><div class="line">        <span class="keyword">new</span> webpack.NoEmitOnErrorsPlugin(),</div><div class="line">    ]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="ExtractTextWebpackPlugin-破坏性改动"><a href="#ExtractTextWebpackPlugin-破坏性改动" class="headerlink" title="ExtractTextWebpackPlugin - 破坏性改动"></a>ExtractTextWebpackPlugin - 破坏性改动</h3><p>ExtractTextPlugin 需要使用版本 2，才能在 webpack 2 下正常运行<br>这一插件的配置变化主要体现在语法上<br>before<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">    <span class="attr">module</span>: &#123;</div><div class="line">        <span class="attr">rules</span>: [</div><div class="line">            &#123;</div><div class="line">                <span class="attr">test</span>: <span class="regexp">/\.less$/</span>,</div><div class="line">                <span class="attr">loader</span>: ExtractTextPlugin.extract(<span class="string">"style-loader"</span>, <span class="string">"css-loader!postcss-loader!less-loader"</span>)</div><div class="line">            &#125;</div><div class="line">        ]</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>after<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">    <span class="attr">module</span>: &#123;</div><div class="line">        <span class="attr">rules</span>: [</div><div class="line">            &#123;</div><div class="line">                <span class="attr">test</span>: <span class="regexp">/\.less$/</span>,</div><div class="line">                <span class="attr">use</span>: ExtractTextPlugin.extract(&#123;</div><div class="line">                    <span class="attr">fallback</span>: <span class="string">"style-loader"</span>,</div><div class="line">                    <span class="attr">use</span>: <span class="string">"css-loader"</span></div><div class="line">                &#125;)</div><div class="line">            &#125;</div><div class="line">        ]</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在插件中<br>before<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">    <span class="attr">plugins</span>: [</div><div class="line">        <span class="keyword">new</span> ExtractTextPlugin(<span class="string">'[name].[contenthash].css'</span>),</div><div class="line">    ]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>after<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">    <span class="attr">plugins</span>: [</div><div class="line">        <span class="keyword">new</span> ExtractTextPlugin(&#123;</div><div class="line">            <span class="attr">filename</span>: <span class="string">'[name].[contenthash].css'</span></div><div class="line">        &#125;),</div><div class="line">    ]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="通过-options-配置-loader"><a href="#通过-options-配置-loader" class="headerlink" title="通过 options 配置 loader"></a>通过 options 配置 loader</h3><p>你不能再通过 webpack.config.js 的自定义属性来配置 loader。只能通过 options 来配置  </p>
+<p>before<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">  <span class="attr">ts</span>: &#123;</div><div class="line">    <span class="attr">compiler</span>: <span class="string">'ntypescript'</span>,</div><div class="line">    <span class="attr">configFileName</span>: <span class="string">'.tsconfig.json'</span>,</div><div class="line">  &#125;,</div><div class="line">  <span class="attr">postcss</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> [autoprefixer, precss, px2rem(PX2REM_OPTIONS)];</div><div class="line">  &#125;,</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>after<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">    <span class="attr">plugins</span>: [</div><div class="line">        <span class="keyword">new</span> webpack.LoaderOptionsPlugin(&#123;</div><div class="line">            <span class="attr">options</span>: &#123;</div><div class="line">                <span class="attr">postcss</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">                    <span class="keyword">return</span> [autoprefixer, precss, px2rem(PX2REM_OPTIONS)];          </div><div class="line">                    &#125;,</div><div class="line">                <span class="attr">ts</span>: &#123;</div><div class="line">                    <span class="attr">compiler</span>: <span class="string">'ntypescript'</span>,</div><div class="line">                    <span class="attr">configFileName</span>: <span class="string">'.tsconfig.json'</span>,</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;)</div><div class="line">    ]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="ES2015-的代码分割"><a href="#ES2015-的代码分割" class="headerlink" title="ES2015 的代码分割"></a>ES2015 的代码分割</h3><p>在 webpack 1 中，可以使用 require.ensure作为实现应用程序的懒加载 chunks 的一种方法<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">const routes = [</div><div class="line">    &#123;</div><div class="line">      path: '/',</div><div class="line">      getIndexRoute (nextState, cb) &#123;</div><div class="line">        require.ensure([], require =&gt; &#123;</div><div class="line">          cb(null, &#123; component: require('CONTAINERS/ProjectList) &#125;)</div><div class="line">        &#125;, 'projectlist')</div><div class="line">      &#125;, </div><div class="line">    &#125;</div><div class="line">]</div></pre></td></tr></table></figure></p>
+<p>ES2015 模块加载规范定义了 import() 方法，可以在运行时(runtime)动态地加载 ES2015 模块。webpack 将 import() 作为分割点(split-point)并将所要请求的模块(requested module)放置到一个单独的 chunk 中。import() 接收模块名作为参数，并返回一个 Promise。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> routes = [&#123;</div><div class="line">  <span class="attr">component</span>: ProjectHeader,</div><div class="line">  <span class="attr">childRoutes</span>: [</div><div class="line">    &#123;</div><div class="line">      <span class="attr">path</span>: <span class="string">'/'</span>,</div><div class="line">      getComponent(location, cb) &#123;</div><div class="line">        System.import(<span class="string">'CONTAINERS/ProjectList'</span>)</div><div class="line">          .then(loadRoute(cb)) <span class="comment">//为每个可能的路由创建独立的 chunk</span></div><div class="line">          .catch(errorLoading)</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">&#125;]</div></pre></td></tr></table></figure>
+<p>好消息是：如果加载 chunk 失败，我们现在可以进行处理，因为现在它基于 Promise</p>
+<p>可以传递部分表达式给 import()。这与 CommonJS 对表达式的处理方式一致（webpack 为所有可能匹配的文件创建 context）。</p>
+<p>import() 为每一个可能的模块创建独立的 chunk。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2017/07/20/react-storybook/" itemprop="url">
                   react-storybook 简单入门
                 </a>
@@ -1272,113 +1429,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/11/09/编写chrome插件-bookmarks/" itemprop="url">
-                  编写chrome插件-bookmarks
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-11-09T21:03:11+08:00" content="2016-11-09">
-              2016-11-09
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/11/09/编写chrome插件-bookmarks/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/09/编写chrome插件-bookmarks/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h3><h4 id="弥补chrome浏览器只能在书签管理器中才能进行对书签进行搜索，该插件可以直接在浏览器顶部进行搜索已有书签"><a href="#弥补chrome浏览器只能在书签管理器中才能进行对书签进行搜索，该插件可以直接在浏览器顶部进行搜索已有书签" class="headerlink" title="弥补chrome浏览器只能在书签管理器中才能进行对书签进行搜索，该插件可以直接在浏览器顶部进行搜索已有书签"></a>弥补chrome浏览器只能在书签管理器中才能进行对书签进行搜索，该插件可以直接在浏览器顶部进行搜索已有书签</h4><h4 id="简单的效果图"><a href="#简单的效果图" class="headerlink" title="简单的效果图"></a>简单的效果图</h4><p><img src="../img/search.png" alt=""></p>
-<h4 id="简单的目录结构"><a href="#简单的目录结构" class="headerlink" title="简单的目录结构"></a>简单的目录结构</h4><p><img src="../img/stuct.png" alt=""></p>
-<p>文件说明：</p>
-<p>images 文件夹主要拿来存放插件中需要用到的图片文件<br>main.js是整个插件的逻辑代码<br>manifest.json插件的配置文件<br>popup.html插件的页面结构文件<br>styles.css样式文件  </p>
-<p>写扩展最主要的就是配置manifest.json文件中的permissions属性获取chrome浏览器的权限<br>参考chrome开发者文档<a href="https://developer.chrome.com/extensions" target="_blank" rel="external">https://developer.chrome.com/extensions</a><br>360浏览器对chrome开发文档做了一个翻译<a href="http://open.chrome.360.cn/extension_dev/overview.html" target="_blank" rel="external">http://open.chrome.360.cn/extension_dev/overview.html</a></p>
-<h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><p>chrome浏览器-》菜单-》更多工具-》扩展程序-》勾选开发者模式-》加载已解压的扩展程序<br>加载后就可以开始测试了，如果需要断点调试可以新建一个tab页面，然后输入<a href="chrome-extension://你的扩展id/popup.html" target="_blank" rel="external">chrome-extension://你的扩展id/popup.html</a></p>
-<p>具体代码见github<br><a href="https://github.com/phobal/b-note/tree/master/bookmarks" target="_blank" rel="external">https://github.com/phobal/b-note/tree/master/bookmarks</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1424,7 +1474,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-count">13</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

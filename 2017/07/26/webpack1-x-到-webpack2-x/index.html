@@ -1,0 +1,704 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="从webpack1.x 到 webpack2.x这周对去年年末做的一个产品准备发布出去，那时候写的脚手架工具是基于webpack1.13.2，还不支持动态导入import，之前都是将所有的代码打在一个bundle.js 中，首次加载的时间差不多要4-5s, 升级到2.0以后使用import方式，配合react-router的动态路由，将系统按照路由进行分割，这时候首页的加载速度差不多在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从webpack1.x 到 webpack2.x">
+<meta property="og:url" content="http://phobal.geithub.io/2017/07/26/webpack1-x-到-webpack2-x/index.html">
+<meta property="og:site_name" content="phobal`s blogs">
+<meta property="og:description" content="从webpack1.x 到 webpack2.x这周对去年年末做的一个产品准备发布出去，那时候写的脚手架工具是基于webpack1.13.2，还不支持动态导入import，之前都是将所有的代码打在一个bundle.js 中，首次加载的时间差不多要4-5s, 升级到2.0以后使用import方式，配合react-router的动态路由，将系统按照路由进行分割，这时候首页的加载速度差不多在">
+<meta property="og:updated_time" content="2017-07-29T08:53:52.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="从webpack1.x 到 webpack2.x">
+<meta name="twitter:description" content="从webpack1.x 到 webpack2.x这周对去年年末做的一个产品准备发布出去，那时候写的脚手架工具是基于webpack1.13.2，还不支持动态导入import，之前都是将所有的代码打在一个bundle.js 中，首次加载的时间差不多要4-5s, 升级到2.0以后使用import方式，配合react-router的动态路由，将系统按照路由进行分割，这时候首页的加载速度差不多在">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://phobal.geithub.io/2017/07/26/webpack1-x-到-webpack2-x/"/>
+
+
+  <title> 从webpack1.x 到 webpack2.x | phobal`s blogs </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">phobal`s blogs</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                从webpack1.x 到 webpack2.x
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-07-26T09:37:26+08:00" content="2017-07-26">
+              2017-07-26
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/07/26/webpack1-x-到-webpack2-x/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/07/26/webpack1-x-到-webpack2-x/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="从webpack1-x-到-webpack2-x"><a href="#从webpack1-x-到-webpack2-x" class="headerlink" title="从webpack1.x 到 webpack2.x"></a>从webpack1.x 到 webpack2.x</h1><p>这周对去年年末做的一个产品准备发布出去，那时候写的脚手架工具是基于webpack1.13.2，还不支持动态导入import，之前都是将所有的代码打在一个bundle.js 中，首次加载的时间差不多要4-5s, 升级到2.0以后使用import方式，配合react-router的动态路由，将系统按照路由进行分割，这时候首页的加载速度差不多在2s左右，下面是我在升级过程中整理的一些笔记。</p>
+<h2 id="resolve"><a href="#resolve" class="headerlink" title="resolve"></a>resolve</h2><h3 id="resolve-root-resolve-fallback-resolve-modulesDirectories"><a href="#resolve-root-resolve-fallback-resolve-modulesDirectories" class="headerlink" title="resolve.root, resolve.fallback, resolve.modulesDirectories"></a>resolve.root, resolve.fallback, resolve.modulesDirectories</h3><p>上面这些写法被一个单独的写法 resolve.modules 取代  </p>
+<p> before  </p>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">    <span class="attr">resolveLoader</span>: &#123;</div><div class="line">        <span class="attr">fallback</span>: <span class="string">'path.join(__dirname, '</span>node_modules<span class="string">')'</span>,</div><div class="line">        <span class="attr">modulesDirectories</span>: [ path.join(__dirname, <span class="string">'node_modules'</span>) ],</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p> after </p>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">    <span class="attr">resolve</span>: &#123;</div><div class="line">       <span class="attr">modules</span>: [ <span class="string">"node_modules"</span>]</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="resolve-extensions"><a href="#resolve-extensions" class="headerlink" title="resolve.extensions"></a>resolve.extensions</h3><p> 此选项不再需要传一个空字符串。此行为被迁移到 resolve.enforceExtension</p>
+<p> before </p>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">    <span class="attr">resolve</span>: &#123;</div><div class="line">        <span class="attr">extensions</span>: [<span class="string">''</span>, <span class="string">'.js'</span>, <span class="string">'.jsx'</span>, <span class="string">'.ts'</span>, <span class="string">'.tsx'</span>, <span class="string">'.json'</span>],</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p> after </p>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">     <span class="attr">resolve</span>: &#123;</div><div class="line">         <span class="attr">extensions</span>: [<span class="string">'.js'</span>, <span class="string">'.jsx'</span>, <span class="string">'.ts'</span>, <span class="string">'.tsx'</span>, <span class="string">'.json'</span>],</div><div class="line">     &#125;</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<h2 id="module"><a href="#module" class="headerlink" title="module"></a>module</h2><h3 id="module-loaders-改为-module-rules"><a href="#module-loaders-改为-module-rules" class="headerlink" title="module.loaders 改为 module.rules"></a>module.loaders 改为 module.rules</h3><p>旧的 loader 配置被更强大的 rules 系统取代，后者允许配置 loader 以及其他更多选项。 为了兼容旧版，module.loaders 语法仍然有效，旧的属性名依然可以被解析。 新的命名约定更易于理解，并且是升级配置使用 module.rules 的好理由</p>
+<p>before </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">    <span class="attr">module</span>: &#123;</div><div class="line">        <span class="attr">loaders</span>: [</div><div class="line">            &#123;</div><div class="line">                <span class="attr">test</span>: <span class="regexp">/\.tsx?$/</span>,</div><div class="line">                <span class="attr">loader</span>: <span class="string">'ts-loader'</span></div><div class="line">            &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>after</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">    <span class="attr">module</span>: &#123;</div><div class="line">        <span class="attr">rules</span>: [</div><div class="line">            &#123;</div><div class="line">                <span class="attr">test</span>: <span class="regexp">/\.tsx?$/</span>,</div><div class="line">                <span class="attr">use</span>: &#123;</div><div class="line">                    <span class="attr">loader</span>: <span class="string">'ts-loader'</span></div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="链式loader"><a href="#链式loader" class="headerlink" title="链式loader"></a>链式loader</h3><p>就像在 webpack 1 中，loader 可以链式调用，上一个 loader 的输出被作为输入传给下一个 loader。 使用 rule.use 配置选项，use 可以设置为一个 loader 数组。 在 webpack 1 中，loader 通常被用 ! 连写。这一写法在 webpack 2 中只在使用旧的选项 module.loaders 时才有效</p>
+<p>before</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">    <span class="attr">module</span>: &#123;</div><div class="line">        <span class="attr">loaders</span>: [</div><div class="line">            &#123;</div><div class="line">                <span class="attr">test</span>: <span class="regexp">/\.css$/</span>,</div><div class="line">                <span class="attr">loader</span>: <span class="string">'style-loader!css-loader!postcss-loader'</span></div><div class="line">            &#125;</div><div class="line">        ]</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>after</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">    <span class="attr">module</span>: &#123;</div><div class="line">        <span class="attr">rules</span>: [</div><div class="line">            &#123;</div><div class="line">                <span class="attr">test</span>: <span class="regexp">/\.css$/</span>,</div><div class="line">                <span class="attr">use</span>: [</div><div class="line">                    <span class="string">'style-loader'</span>,</div><div class="line">                    <span class="string">'css-loader'</span>,</div><div class="line">                    <span class="string">'postcss-loader'</span></div><div class="line">                ]</div><div class="line">            &#125;</div><div class="line">        ]</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="取消「在模块名中自动添加-loader-后缀」"><a href="#取消「在模块名中自动添加-loader-后缀」" class="headerlink" title="取消「在模块名中自动添加 -loader 后缀」"></a>取消「在模块名中自动添加 -loader 后缀」</h3><p>before</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">    <span class="attr">module</span>: &#123;</div><div class="line">        <span class="attr">loaders</span>: [</div><div class="line">            &#123;</div><div class="line">                <span class="attr">test</span>: <span class="regexp">/\.css$/</span>,</div><div class="line">                <span class="attr">loader</span>: <span class="string">'style!css!postcss'</span></div><div class="line">            &#125;</div><div class="line">        ]</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>after</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">    <span class="attr">module</span>: &#123;</div><div class="line">        <span class="attr">rules</span>: [</div><div class="line">            &#123;</div><div class="line">                <span class="attr">test</span>: <span class="regexp">/\.css$/</span>,</div><div class="line">                <span class="attr">use</span>: [</div><div class="line">                    <span class="string">'style-loader'</span>,</div><div class="line">                    <span class="string">'css-loader'</span>,</div><div class="line">                    <span class="string">'postcss-loader'</span></div><div class="line">                ]</div><div class="line">            &#125;</div><div class="line">        ]</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这么改的<a href="https://github.com/webpack/webpack/issues/2986" target="_blank" rel="external">原因</a></p>
+<h3 id="json-loader-不再需要手动添加"><a href="#json-loader-不再需要手动添加" class="headerlink" title="json-loader 不再需要手动添加"></a>json-loader 不再需要手动添加</h3><p>如果没有为 JSON 文件配置 loader，webpack 将自动尝试通过 json-loader 加载 JSON 文件</p>
+<p>这么做的<a href="https://github.com/webpack/webpack/issues/3363" target="_blank" rel="external">目的</a>主要是消除 webpack、 nodejs和 browserify之间的差异</p>
+<h3 id="配置中的-loader-默认相对于-context-进行解析"><a href="#配置中的-loader-默认相对于-context-进行解析" class="headerlink" title="配置中的 loader 默认相对于 context 进行解析"></a>配置中的 loader 默认相对于 context 进行解析</h3><p>在 webpack 1 中，默认配置下 loader 解析相对于被匹配的文件。然而，在 webpack 2 中，默认配置下 loader 解析相对于 context 选项。</p>
+<p>这解决了「在使用 npm link 或引用 context 上下文目录之外的模块时，loader 所导致的模块重复载入」的问题。</p>
+<h2 id="Plugin-插件"><a href="#Plugin-插件" class="headerlink" title="Plugin 插件"></a>Plugin 插件</h2><h3 id="UglifyJsPlugin-sourceMap"><a href="#UglifyJsPlugin-sourceMap" class="headerlink" title="UglifyJsPlugin sourceMap"></a>UglifyJsPlugin sourceMap</h3><p>UglifyJsPlugin 的 sourceMap 选项现在默认为 false 而不是 true。这意味着如果你在压缩代码时启用了 source map，或者想要让 uglifyjs 的警告能够对应到正确的代码行，你需要将 UglifyJsPlugin 的 sourceMap 设为 true</p>
+<p>before<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">  <span class="attr">devtool</span>: <span class="string">"source-map"</span>,</div><div class="line">  <span class="attr">plugins</span>: [</div><div class="line">    <span class="keyword">new</span> UglifyJsPlugin()</div><div class="line">  ]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>after<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">  <span class="attr">devtool</span>: <span class="string">"source-map"</span>,</div><div class="line">  <span class="attr">plugins</span>: [</div><div class="line">    <span class="keyword">new</span> UglifyJsPlugin(&#123;</div><div class="line">      <span class="attr">sourceMap</span>: <span class="literal">true</span></div><div class="line">    &#125;)</div><div class="line">  ]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="UglifyJsPlugin-warnings"><a href="#UglifyJsPlugin-warnings" class="headerlink" title="UglifyJsPlugin warnings"></a>UglifyJsPlugin warnings</h3><p>UglifyJsPlugin 的 compress.warnings 选项现在默认为 false 而不是 true。 这意味着如果你想要看到 uglifyjs 的警告信息，你需要将 compress.warnings 设为 true</p>
+<p>before<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">  <span class="attr">devtool</span>: <span class="string">"source-map"</span>,</div><div class="line">  <span class="attr">plugins</span>: [</div><div class="line">    <span class="keyword">new</span> UglifyJsPlugin()</div><div class="line">  ]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>after<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">  <span class="attr">devtool</span>: <span class="string">"source-map"</span>,</div><div class="line">  <span class="attr">plugins</span>: [</div><div class="line">    <span class="keyword">new</span> UglifyJsPlugin(&#123;</div><div class="line">     <span class="attr">compress</span>: &#123;</div><div class="line">        <span class="attr">warnings</span>: <span class="literal">true</span></div><div class="line">     &#125;</div><div class="line">    &#125;)</div><div class="line">  ]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="UglifyJsPlugin-不再压缩-loaders"><a href="#UglifyJsPlugin-不再压缩-loaders" class="headerlink" title="UglifyJsPlugin 不再压缩 loaders"></a>UglifyJsPlugin 不再压缩 loaders</h3><p>UglifyJsPlugin 不再压缩 loaders。在未来很长一段时间里，需要通过设置 minimize:true 来压缩 loaders</p>
+<p>为了兼容旧的 loaders，loaders 可以通过插件来切换到压缩模式：</p>
+<p>before<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">  <span class="attr">ts</span>: &#123;</div><div class="line">    <span class="attr">compiler</span>: <span class="string">'ntypescript'</span>,</div><div class="line">    <span class="attr">configFileName</span>: <span class="string">'.tsconfig.json'</span>,</div><div class="line">  &#125;,</div><div class="line">  <span class="attr">postcss</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> [autoprefixer, precss, px2rem(PX2REM_OPTIONS)];</div><div class="line">  &#125;,</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>after<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">    <span class="attr">minimize</span>: <span class="literal">true</span>,</div><div class="line">    <span class="attr">plugins</span>: [</div><div class="line">        <span class="keyword">new</span> webpack.LoaderOptionsPlugin(&#123;</div><div class="line">            <span class="attr">options</span>: &#123;</div><div class="line">                <span class="attr">postcss</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">                    <span class="keyword">return</span> [autoprefixer, precss, px2rem(PX2REM_OPTIONS)];          </div><div class="line">                    &#125;,</div><div class="line">                <span class="attr">ts</span>: &#123;</div><div class="line">                    <span class="attr">compiler</span>: <span class="string">'ntypescript'</span>,</div><div class="line">                    <span class="attr">configFileName</span>: <span class="string">'.tsconfig.json'</span>,</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;)</div><div class="line">    ]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="移除-DedupePlugin"><a href="#移除-DedupePlugin" class="headerlink" title="移除 DedupePlugin"></a>移除 DedupePlugin</h3><h3 id="BannerPlugin-破坏性改动"><a href="#BannerPlugin-破坏性改动" class="headerlink" title="BannerPlugin - 破坏性改动"></a>BannerPlugin - 破坏性改动</h3><p>BannerPlugin 不再接受两个参数，而是只接受单独的 options 对象<br>before<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports =  &#123;</div><div class="line">    <span class="attr">plugins</span>: [</div><div class="line">       <span class="keyword">new</span> webpack.BannerPlugin(<span class="string">'Banner'</span>, &#123;<span class="attr">raw</span>: <span class="literal">true</span>, <span class="attr">entryOnly</span>: <span class="literal">true</span>&#125;);</div><div class="line">    ]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>after<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports =  &#123;</div><div class="line">    <span class="attr">plugins</span>: [</div><div class="line">       <span class="keyword">new</span> webpack.BannerPlugin(&#123;<span class="attr">banner</span>: <span class="string">'Banner'</span>, <span class="attr">raw</span>: <span class="literal">true</span>, <span class="attr">entryOnly</span>: <span class="literal">true</span>&#125;);</div><div class="line">    ]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="默认加载-OccurrenceOrderPlugin"><a href="#默认加载-OccurrenceOrderPlugin" class="headerlink" title="默认加载 OccurrenceOrderPlugin"></a>默认加载 OccurrenceOrderPlugin</h3><p>before<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">    <span class="attr">plugins</span>: [</div><div class="line">        <span class="keyword">new</span> webpack.optimize.DedupePlugin(),</div><div class="line">        <span class="keyword">new</span> webpack.optimize.OccurrenceOrderPlugin(),</div><div class="line">        <span class="keyword">new</span> webpack.NoEmitOnErrorsPlugin(),</div><div class="line">    ]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>after<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">    <span class="attr">plugins</span>: [</div><div class="line">        <span class="comment">//new webpack.optimize.DedupePlugin(),</span></div><div class="line">        <span class="comment">//new webpack.optimize.OccurrenceOrderPlugin(),</span></div><div class="line">        <span class="keyword">new</span> webpack.NoEmitOnErrorsPlugin(),</div><div class="line">    ]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="ExtractTextWebpackPlugin-破坏性改动"><a href="#ExtractTextWebpackPlugin-破坏性改动" class="headerlink" title="ExtractTextWebpackPlugin - 破坏性改动"></a>ExtractTextWebpackPlugin - 破坏性改动</h3><p>ExtractTextPlugin 需要使用版本 2，才能在 webpack 2 下正常运行<br>这一插件的配置变化主要体现在语法上<br>before<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">    <span class="attr">module</span>: &#123;</div><div class="line">        <span class="attr">rules</span>: [</div><div class="line">            &#123;</div><div class="line">                <span class="attr">test</span>: <span class="regexp">/\.less$/</span>,</div><div class="line">                <span class="attr">loader</span>: ExtractTextPlugin.extract(<span class="string">"style-loader"</span>, <span class="string">"css-loader!postcss-loader!less-loader"</span>)</div><div class="line">            &#125;</div><div class="line">        ]</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>after<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">    <span class="attr">module</span>: &#123;</div><div class="line">        <span class="attr">rules</span>: [</div><div class="line">            &#123;</div><div class="line">                <span class="attr">test</span>: <span class="regexp">/\.less$/</span>,</div><div class="line">                <span class="attr">use</span>: ExtractTextPlugin.extract(&#123;</div><div class="line">                    <span class="attr">fallback</span>: <span class="string">"style-loader"</span>,</div><div class="line">                    <span class="attr">use</span>: <span class="string">"css-loader"</span></div><div class="line">                &#125;)</div><div class="line">            &#125;</div><div class="line">        ]</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在插件中<br>before<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">    <span class="attr">plugins</span>: [</div><div class="line">        <span class="keyword">new</span> ExtractTextPlugin(<span class="string">'[name].[contenthash].css'</span>),</div><div class="line">    ]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>after<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">    <span class="attr">plugins</span>: [</div><div class="line">        <span class="keyword">new</span> ExtractTextPlugin(&#123;</div><div class="line">            <span class="attr">filename</span>: <span class="string">'[name].[contenthash].css'</span></div><div class="line">        &#125;),</div><div class="line">    ]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="通过-options-配置-loader"><a href="#通过-options-配置-loader" class="headerlink" title="通过 options 配置 loader"></a>通过 options 配置 loader</h3><p>你不能再通过 webpack.config.js 的自定义属性来配置 loader。只能通过 options 来配置  </p>
+<p>before<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">  <span class="attr">ts</span>: &#123;</div><div class="line">    <span class="attr">compiler</span>: <span class="string">'ntypescript'</span>,</div><div class="line">    <span class="attr">configFileName</span>: <span class="string">'.tsconfig.json'</span>,</div><div class="line">  &#125;,</div><div class="line">  <span class="attr">postcss</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> [autoprefixer, precss, px2rem(PX2REM_OPTIONS)];</div><div class="line">  &#125;,</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>after<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">    <span class="attr">plugins</span>: [</div><div class="line">        <span class="keyword">new</span> webpack.LoaderOptionsPlugin(&#123;</div><div class="line">            <span class="attr">options</span>: &#123;</div><div class="line">                <span class="attr">postcss</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">                    <span class="keyword">return</span> [autoprefixer, precss, px2rem(PX2REM_OPTIONS)];          </div><div class="line">                    &#125;,</div><div class="line">                <span class="attr">ts</span>: &#123;</div><div class="line">                    <span class="attr">compiler</span>: <span class="string">'ntypescript'</span>,</div><div class="line">                    <span class="attr">configFileName</span>: <span class="string">'.tsconfig.json'</span>,</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;)</div><div class="line">    ]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="ES2015-的代码分割"><a href="#ES2015-的代码分割" class="headerlink" title="ES2015 的代码分割"></a>ES2015 的代码分割</h3><p>在 webpack 1 中，可以使用 require.ensure作为实现应用程序的懒加载 chunks 的一种方法<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">const routes = [</div><div class="line">    &#123;</div><div class="line">      path: '/',</div><div class="line">      getIndexRoute (nextState, cb) &#123;</div><div class="line">        require.ensure([], require =&gt; &#123;</div><div class="line">          cb(null, &#123; component: require('CONTAINERS/ProjectList) &#125;)</div><div class="line">        &#125;, 'projectlist')</div><div class="line">      &#125;, </div><div class="line">    &#125;</div><div class="line">]</div></pre></td></tr></table></figure></p>
+<p>ES2015 模块加载规范定义了 import() 方法，可以在运行时(runtime)动态地加载 ES2015 模块。webpack 将 import() 作为分割点(split-point)并将所要请求的模块(requested module)放置到一个单独的 chunk 中。import() 接收模块名作为参数，并返回一个 Promise。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> routes = [&#123;</div><div class="line">  <span class="attr">component</span>: ProjectHeader,</div><div class="line">  <span class="attr">childRoutes</span>: [</div><div class="line">    &#123;</div><div class="line">      <span class="attr">path</span>: <span class="string">'/'</span>,</div><div class="line">      getComponent(location, cb) &#123;</div><div class="line">        System.import(<span class="string">'CONTAINERS/ProjectList'</span>)</div><div class="line">          .then(loadRoute(cb)) <span class="comment">//为每个可能的路由创建独立的 chunk</span></div><div class="line">          .catch(errorLoading)</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">&#125;]</div></pre></td></tr></table></figure>
+<p>好消息是：如果加载 chunk 失败，我们现在可以进行处理，因为现在它基于 Promise</p>
+<p>可以传递部分表达式给 import()。这与 CommonJS 对表达式的处理方式一致（webpack 为所有可能匹配的文件创建 context）。</p>
+<p>import() 为每一个可能的模块创建独立的 chunk。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/20/react-storybook/" rel="next" title="react-storybook 简单入门">
+                <i class="fa fa-chevron-left"></i> react-storybook 简单入门
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/07/26/webpack1-x-到-webpack2-x/"
+           data-title="从webpack1.x 到 webpack2.x" data-url="http://phobal.geithub.io/2017/07/26/webpack1-x-到-webpack2-x/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="phobal" />
+          <p class="site-author-name" itemprop="name">phobal</p>
+          <p class="site-description motion-element" itemprop="description">web developer</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/phobal" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/phoneball" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/phoneball" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#从webpack1-x-到-webpack2-x"><span class="nav-number">1.</span> <span class="nav-text">从webpack1.x 到 webpack2.x</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#resolve"><span class="nav-number">1.1.</span> <span class="nav-text">resolve</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#resolve-root-resolve-fallback-resolve-modulesDirectories"><span class="nav-number">1.1.1.</span> <span class="nav-text">resolve.root, resolve.fallback, resolve.modulesDirectories</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#resolve-extensions"><span class="nav-number">1.1.2.</span> <span class="nav-text">resolve.extensions</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#module"><span class="nav-number">1.2.</span> <span class="nav-text">module</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#module-loaders-改为-module-rules"><span class="nav-number">1.2.1.</span> <span class="nav-text">module.loaders 改为 module.rules</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链式loader"><span class="nav-number">1.2.2.</span> <span class="nav-text">链式loader</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#取消「在模块名中自动添加-loader-后缀」"><span class="nav-number">1.2.3.</span> <span class="nav-text">取消「在模块名中自动添加 -loader 后缀」</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#json-loader-不再需要手动添加"><span class="nav-number">1.2.4.</span> <span class="nav-text">json-loader 不再需要手动添加</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置中的-loader-默认相对于-context-进行解析"><span class="nav-number">1.2.5.</span> <span class="nav-text">配置中的 loader 默认相对于 context 进行解析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Plugin-插件"><span class="nav-number">1.3.</span> <span class="nav-text">Plugin 插件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#UglifyJsPlugin-sourceMap"><span class="nav-number">1.3.1.</span> <span class="nav-text">UglifyJsPlugin sourceMap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UglifyJsPlugin-warnings"><span class="nav-number">1.3.2.</span> <span class="nav-text">UglifyJsPlugin warnings</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UglifyJsPlugin-不再压缩-loaders"><span class="nav-number">1.3.3.</span> <span class="nav-text">UglifyJsPlugin 不再压缩 loaders</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#移除-DedupePlugin"><span class="nav-number">1.3.4.</span> <span class="nav-text">移除 DedupePlugin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BannerPlugin-破坏性改动"><span class="nav-number">1.3.5.</span> <span class="nav-text">BannerPlugin - 破坏性改动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#默认加载-OccurrenceOrderPlugin"><span class="nav-number">1.3.6.</span> <span class="nav-text">默认加载 OccurrenceOrderPlugin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ExtractTextWebpackPlugin-破坏性改动"><span class="nav-number">1.3.7.</span> <span class="nav-text">ExtractTextWebpackPlugin - 破坏性改动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过-options-配置-loader"><span class="nav-number">1.3.8.</span> <span class="nav-text">通过 options 配置 loader</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ES2015-的代码分割"><span class="nav-number">1.3.9.</span> <span class="nav-text">ES2015 的代码分割</span></a></li></ol></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">phobal</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"phobal"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
