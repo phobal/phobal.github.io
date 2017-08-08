@@ -98,7 +98,7 @@
 根据提示已经将这台服务器的指纹添加到known hosts,然后提示输入密码，密码正确就显示：1[root@username ~]#
 2、断开服务器的连接1$ logout
 3、本地文件上传到服务器1$ scp /path/fil">
-<meta property="og:updated_time" content="2017-04-08T08:32:06.000Z">
+<meta property="og:updated_time" content="2017-08-08T12:41:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="云服务器配置杂记">
 <meta name="twitter:description" content="配置云服务器配置清单供应商：京东云服务平台镜像：centos 6.8 64位CPU：1核内存：1GB系统盘：30G
@@ -323,11 +323,28 @@
 <p>3、本地文件上传到服务器<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ scp /path/filename username@servername:/path,</div></pre></td></tr></table></figure></p>
 <p>例如：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ scp ./ssh.md root@192.168.1.3:/root/phobal/<span class="built_in">test</span>/</div></pre></td></tr></table></figure></p>
 <p>把本机当前目录下的shh.md拷贝到服务器/root/phobal/test/文件夹下</p>
-<p>4上传文件夹<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ scp /path/folder/* username@servername:/path</div></pre></td></tr></table></figure></p>
+<p>4、上传文件夹<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ scp /path/folder/* username@servername:/path</div></pre></td></tr></table></figure></p>
 <p>例如：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ scp /websites/machine/* root@192.168.1.3:/root/phobal/<span class="built_in">test</span>/</div></pre></td></tr></table></figure></p>
 <p>5、从服务器上下载文件<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ scp username@servername:/path/filename</div></pre></td></tr></table></figure></p>
 <p>例如：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ scp root@222.187.245.173:/root/phobal/<span class="built_in">test</span>/hello.js</div></pre></td></tr></table></figure></p>
 <p>6、从服务器下载整个文件夹<br>参考 <a href="http://www.2cto.com/os/201304/205467.html" target="_blank" rel="external">http://www.2cto.com/os/201304/205467.html</a></p>
+<p>7、用户管理  </p>
+<ul>
+<li><p>添加用户</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ adduser XXX</div></pre></td></tr></table></figure>
+</li>
+<li><p>为上面添加的用户添加密码或者对已经建立好的用户修改密码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ passwd XXX</div></pre></td></tr></table></figure>
+</li>
+<li><p>删除用户</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ userdel XXX</div></pre></td></tr></table></figure>
+</li>
+<li><p>为用户添加root权限</p>
+</li>
+</ul>
+<p>修改/etc/sudoers 文件，找到下面一行，在root下面添加一行，如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">##Allow root to run any commands anywhere</div><div class="line"></div><div class="line">root    ALL=(ALL)     ALL</div><div class="line"></div><div class="line">XXX   ALL=(ALL)     ALL</div></pre></td></tr></table></figure>
+<p>修改完毕，现在可以用 XXX 帐号登录，然后用命令sudo ，即可获得root权限进行操作</p>
 
       
     </div>
