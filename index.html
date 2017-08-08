@@ -601,7 +601,8 @@
 <p>2、node原生支持inspect  </p>
 <p>对需要调试的js文件执行：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">node --inspect XX.js</div></pre></td></tr></table></figure></p>
 <p>然后在下面会出现一串以“chrome-devtools://” 开头的地址，将这串地址拷贝在浏览器中就可以将调试前端代码那样调试服务器端代码了</p>
-
+<p>3、统计代码行数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># 包含注释，跳过空行</div><div class="line">find . -name &quot;*.js&quot; | xargs grep -v &quot;^$&quot; | wc -l</div></pre></td></tr></table></figure>
           
         
       
