@@ -102,7 +102,7 @@
 1const cubed = 3 ** 3;
 打印出cubed,看到27说明成功了！
 2、no">
-<meta property="og:updated_time" content="2017-08-08T02:32:20.000Z">
+<meta property="og:updated_time" content="2017-08-13T09:15:08.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一些小技巧">
 <meta name="twitter:description" content="1、 让chrome浏览器支持es7新语法  
@@ -333,6 +333,15 @@
 <p>然后在下面会出现一串以“chrome-devtools://” 开头的地址，将这串地址拷贝在浏览器中就可以将调试前端代码那样调试服务器端代码了</p>
 <p>3、统计代码行数</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># 包含注释，跳过空行</div><div class="line">find . -name &quot;*.js&quot; | xargs grep -v &quot;^$&quot; | wc -l</div></pre></td></tr></table></figure>
+<p>4、解析base64<br>v2ex 论坛上经常看到一些关于邮箱或者 QQ 信息的，为了保密所以一般都会将其转换为 base64,那么他们是怎么做到的呢？ 其实就在浏览器的控制台就可以做到。  </p>
+<ul>
+<li>字符串转 base64</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">btoa(<span class="string">'hello world'</span>)</div><div class="line"><span class="comment">//输出 aGVsbG8gd29ybGQ=</span></div></pre></td></tr></table></figure>
+<ul>
+<li>将 base64 转字符串</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">atob(<span class="string">'aGVsbG8gd29ybGQ='</span>)</div><div class="line"><span class="comment">// 输出 hello world</span></div></pre></td></tr></table></figure>
       
     </div>
 
