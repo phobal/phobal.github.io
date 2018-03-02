@@ -98,7 +98,7 @@
 根据提示已经将这台服务器的指纹添加到known hosts,然后提示输入密码，密码正确就显示：1[root@username ~]#
 2、断开服务器的连接1$ logout
 3、本地文件上传到服务器1$ scp /path/fil">
-<meta property="og:updated_time" content="2017-08-15T05:50:46.000Z">
+<meta property="og:updated_time" content="2017-11-17T05:15:56.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="云服务器配置杂记(持续更新中...)">
 <meta name="twitter:description" content="配置云服务器配置清单供应商：京东云服务平台镜像：centos 6.8 64位CPU：1核内存：1GB系统盘：30G
@@ -345,6 +345,11 @@
 <p>修改/etc/sudoers 文件，找到下面一行，在root下面添加一行，如下所示：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">##Allow root to run any commands anywhere</div><div class="line"></div><div class="line">root    ALL=(ALL)     ALL</div><div class="line"></div><div class="line">XXX   ALL=(ALL)     ALL</div></pre></td></tr></table></figure>
 <p>修改完毕，现在可以用 XXX 帐号登录，然后用命令sudo ，即可获得root权限进行操作</p>
+<ul>
+<li>当使用 vim 编辑一个文件的时候出现权限不够文件保存不了的时候可以使用下面的命令解决</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">:w !sudo tee %</div></pre></td></tr></table></figure>
+<p>然后根据提示输入 L  </p>
 
       
     </div>
@@ -452,7 +457,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-count">20</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -469,7 +474,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -546,7 +551,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

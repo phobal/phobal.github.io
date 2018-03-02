@@ -102,7 +102,7 @@
 1const cubed = 3 ** 3;
 打印出cubed,看到27说明成功了！
 2、no">
-<meta property="og:updated_time" content="2017-08-15T05:50:31.000Z">
+<meta property="og:updated_time" content="2017-12-04T02:47:54.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一些小技巧(持续更新中...)">
 <meta name="twitter:description" content="1、 让chrome浏览器支持es7新语法  
@@ -342,6 +342,10 @@
 <li>将 base64 转字符串</li>
 </ul>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">atob(<span class="string">'aGVsbG8gd29ybGQ='</span>)</div><div class="line"><span class="comment">// 输出 hello world</span></div></pre></td></tr></table></figure>
+<ul>
+<li>在 markdown 中使用 patch 作为语言可以达到 git diff 效果</li>
+</ul>
+<figure class="highlight patch"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">diff --git a/learning/src/actions/taskActions.js b/learning/src/actions/taskActions.js</div><div class="line">index e0531d3..301cba0 100644</div><div class="line"><span class="comment">--- a/learning/src/actions/taskActions.js</span></div><div class="line"><span class="comment">+++ b/learning/src/actions/taskActions.js</span></div><div class="line">@@ -108,7 +108,8 @@ export function saveTrainingJob(data, callback) &#123;</div><div class="line">     body: JSON.stringify(data)</div><div class="line">   &#125;;</div><div class="line">   const successCallback = function () &#123;</div><div class="line"><span class="deletion">-    callback &amp;&amp; callback();</span></div><div class="line"><span class="addition">+    // callback &amp;&amp; callback();</span></div></pre></td></tr></table></figure>
       
     </div>
 
@@ -454,7 +458,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-count">20</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -471,7 +475,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -548,7 +552,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

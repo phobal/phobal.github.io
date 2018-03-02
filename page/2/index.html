@@ -259,6 +259,739 @@
             
               
                 
+                <a class="post-title-link" href="/2017/04/08/react-state定义的3种方式/" itemprop="url">
+                  react state定义的3种方式
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-04-08T16:35:18+08:00" content="2017-04-08">
+              2017-04-08
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/04/08/react-state定义的3种方式/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/04/08/react-state定义的3种方式/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="react中state定义的3种方式"><a href="#react中state定义的3种方式" class="headerlink" title="react中state定义的3种方式"></a>react中state定义的3种方式</h3><p>大家都知道的在react组件中，我们通过props和state来控制数据，props是在父组件中被指定的<br>而且一经指定，在被指定的组件的生命周期内是不能够进行改变的，对于需要改变的数据，只能依托<br>state来进行处理了，所以就引申出了一个话题，如何初始化state呢？<br>我根据react的发展历程来进行总结出3中写法。</p>
+<h4 id="ES5-在getInitialState中进行设置"><a href="#ES5-在getInitialState中进行设置" class="headerlink" title="ES5 在getInitialState中进行设置"></a>ES5 在getInitialState中进行设置</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> MyComponent = React.createClass(&#123;</div><div class="line">    <span class="attr">getInitialState</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        disable:<span class="literal">false</span></div><div class="line">    &#125;</div><div class="line">    render:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="keyword">return</span> (</div><div class="line">            &lt;button disable=&#123;this.state.disable&#125;&gt;submit&lt;\/button&gt;</div><div class="line">        )</div><div class="line">    &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>这种写法是es5的写法，比较老了，不推荐使用这种方式写，当时出现这种方式主要是因为webpack和  babel还未兴起，现在他们大行其道，自然大家更倾向于es6的写法了。</p>
+<h4 id="ES6-在constructor中进行设置"><a href="#ES6-在constructor中进行设置" class="headerlink" title="ES6 在constructor中进行设置"></a>ES6 在constructor中进行设置</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyComponent</span> <span class="keyword">extends</span> <span class="title">PureComponent</span> </span>&#123;</div><div class="line">    <span class="keyword">constructor</span>(props)&#123;</div><div class="line">        <span class="keyword">super</span>(props)</div><div class="line">        <span class="keyword">this</span>.state = &#123;</div><div class="line">            <span class="attr">disable</span>:<span class="literal">false</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    render()&#123;</div><div class="line">        <span class="keyword">return</span> (</div><div class="line">            &lt;button disable=&#123;this.state.disable&#125;&gt;submit&lt;\/button&gt;</div><div class="line">        )</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>es6提出了class的概念，constructor作为一个类的入口，每次初始化的时候都会执行constructor中的代码，所以我们可以将state写在构造函数中，这个也是react官方推荐的写法。</p>
+<h4 id="ES7-定义实例属性"><a href="#ES7-定义实例属性" class="headerlink" title="ES7 定义实例属性"></a>ES7 定义实例属性</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyComponent</span> <span class="keyword">extends</span> <span class="title">PureComponent</span> </span>&#123;</div><div class="line">    state = &#123;</div><div class="line">        <span class="attr">disable</span>:<span class="literal">false</span></div><div class="line">    &#125;</div><div class="line">    render()&#123;</div><div class="line">        <span class="keyword">return</span> (</div><div class="line">            &lt;button disable=&#123;this.state.disable&#125;&gt;&lt;\/button&gt;</div><div class="line">        )</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>ES6中不支持在class中定义类的属性，只能定义方法，例如：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span></span>&#123;</div><div class="line">    name:a,</div><div class="line">    method()&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">Foo.name     <span class="comment">//undefined</span></div></pre></td></tr></table></figure></p>
+<p>而在ES7的提案中允许通过“=”赋值的方法设置类的实例属性。</p>
+<p>&lt;完&gt;</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/02/19/云服务器配置杂记/" itemprop="url">
+                  云服务器配置杂记(持续更新中...)
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-02-19T23:05:12+08:00" content="2017-02-19">
+              2017-02-19
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/02/19/云服务器配置杂记/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/19/云服务器配置杂记/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="配置云服务器"><a href="#配置云服务器" class="headerlink" title="配置云服务器"></a>配置云服务器</h3><p>配置清单<br>供应商：京东云服务平台<br>镜像：centos 6.8 64位<br>CPU：1核<br>内存：1GB<br>系统盘：30G</p>
+<p>1、SSH方式连接服务器<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ssh root@ip</div></pre></td></tr></table></figure></p>
+<p>根据提示已经将这台服务器的指纹添加到known hosts,然后提示输入密码，密码正确就显示：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@username ~]<span class="comment">#</span></div></pre></td></tr></table></figure></p>
+<p>2、断开服务器的连接<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">logout</span></div></pre></td></tr></table></figure></p>
+<p>3、本地文件上传到服务器<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ scp /path/filename username@servername:/path,</div></pre></td></tr></table></figure></p>
+<p>例如：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ scp ./ssh.md root@192.168.1.3:/root/phobal/<span class="built_in">test</span>/</div></pre></td></tr></table></figure></p>
+<p>把本机当前目录下的shh.md拷贝到服务器/root/phobal/test/文件夹下</p>
+<p>4、上传文件夹<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ scp /path/folder/* username@servername:/path</div></pre></td></tr></table></figure></p>
+<p>例如：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ scp /websites/machine/* root@192.168.1.3:/root/phobal/<span class="built_in">test</span>/</div></pre></td></tr></table></figure></p>
+<p>5、从服务器上下载文件<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ scp username@servername:/path/filename</div></pre></td></tr></table></figure></p>
+<p>例如：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ scp root@222.187.245.173:/root/phobal/<span class="built_in">test</span>/hello.js</div></pre></td></tr></table></figure></p>
+<p>6、从服务器下载整个文件夹<br>参考 <a href="http://www.2cto.com/os/201304/205467.html" target="_blank" rel="external">http://www.2cto.com/os/201304/205467.html</a></p>
+<p>7、用户管理  </p>
+<ul>
+<li><p>添加用户</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ adduser XXX</div></pre></td></tr></table></figure>
+</li>
+<li><p>为上面添加的用户添加密码或者对已经建立好的用户修改密码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ passwd XXX</div></pre></td></tr></table></figure>
+</li>
+<li><p>删除用户</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ userdel XXX</div></pre></td></tr></table></figure>
+</li>
+<li><p>为用户添加root权限</p>
+</li>
+</ul>
+<p>修改/etc/sudoers 文件，找到下面一行，在root下面添加一行，如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">##Allow root to run any commands anywhere</div><div class="line"></div><div class="line">root    ALL=(ALL)     ALL</div><div class="line"></div><div class="line">XXX   ALL=(ALL)     ALL</div></pre></td></tr></table></figure>
+<p>修改完毕，现在可以用 XXX 帐号登录，然后用命令sudo ，即可获得root权限进行操作</p>
+<ul>
+<li>当使用 vim 编辑一个文件的时候出现权限不够文件保存不了的时候可以使用下面的命令解决</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">:w !sudo tee %</div></pre></td></tr></table></figure>
+<p>然后根据提示输入 L  </p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/01/05/React绑定事件的方法总结/" itemprop="url">
+                  React绑定事件的方法总结
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-01-05T23:48:13+08:00" content="2017-01-05">
+              2017-01-05
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/01/05/React绑定事件的方法总结/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/05/React绑定事件的方法总结/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="React绑定事件的方法总结"><a href="#React绑定事件的方法总结" class="headerlink" title="React绑定事件的方法总结"></a>React绑定事件的方法总结</h3><p>在使用react进行组件化开发过程中，对组件中的某一个元素进行绑定事件是一个经常做的工作，比如：提交表单按钮click事件、文本框输入值后的onchange事件等等。以下总结下我在平常开发中常用的4种方法。</p>
+<h4 id="1、在元素中写bind"><a href="#1、在元素中写bind" class="headerlink" title="1、在元素中写bind"></a>1、在元素中写bind</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">Component</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line">    <span class="keyword">constructor</span>(props)&#123;</div><div class="line">        <span class="keyword">super</span>(props)</div><div class="line">    &#125;</div><div class="line">    onClick(e)&#123;</div><div class="line">        <span class="built_in">console</span>.log(e)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    render()&#123;</div><div class="line">        <span class="keyword">return</span> (</div><div class="line">        &lt;button onClick = &#123;this.onClick.bind(this)&#125; /&gt;</div><div class="line">        )</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="2、在constructor中写bind"><a href="#2、在constructor中写bind" class="headerlink" title="2、在constructor中写bind"></a>2、在constructor中写bind</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">Component</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line">    <span class="keyword">constructor</span>(props)&#123;</div><div class="line">        <span class="keyword">super</span>(props)</div><div class="line">        <span class="keyword">this</span>.onClick = <span class="keyword">this</span>.onClick.bind(<span class="keyword">this</span>)</div><div class="line">    &#125;</div><div class="line">    onClick(e)&#123;</div><div class="line">        <span class="built_in">console</span>.log(e)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    render()&#123;</div><div class="line">        <span class="keyword">return</span> (</div><div class="line">        &lt;button onClick = &#123;this.onClick&#125; /&gt;</div><div class="line">        )</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="3、使用箭头函数"><a href="#3、使用箭头函数" class="headerlink" title="3、使用箭头函数"></a>3、使用箭头函数</h4><p>箭头函数可以绑定this对象，大大减少显式绑定this对象的写法(call,apply,bind)</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">Component</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line">    <span class="keyword">constructor</span>(props)&#123;</div><div class="line">        <span class="keyword">super</span>(props)</div><div class="line">    &#125;</div><div class="line">    onClick(e)&#123;</div><div class="line">        <span class="built_in">console</span>.log(e)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    render()&#123;</div><div class="line">        <span class="keyword">return</span> (</div><div class="line">        &lt;button onClick = &#123;() =&gt; this.onClick&#125; /&gt;</div><div class="line">        )</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="4、使用函数绑定运算符’-’"><a href="#4、使用函数绑定运算符’-’" class="headerlink" title="4、使用函数绑定运算符’::’"></a>4、使用函数绑定运算符’::’</h4><p>箭头函数并不是适合运用于所有的场合，所以ES7提出了“函数绑定”（function bind）运算符，用来取代call、apply、bind调用</p>
+<blockquote>
+<p>函数绑定运算符是并排的两个双冒号（::），双冒号左边是一个对象，右边是一个函数。该运算符会自动将左边的对象，作为上下文环境（即this对象），绑定到右边的函数上面。</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">Component</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line">    <span class="keyword">constructor</span>(props)&#123;</div><div class="line">        <span class="keyword">super</span>(props)</div><div class="line">    &#125;</div><div class="line">    onClick(e)&#123;</div><div class="line">        <span class="built_in">console</span>.log(e)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    render()&#123;</div><div class="line">        <span class="keyword">return</span> (</div><div class="line">        &lt;button onClick = &#123;::this.onClick&#125; /&gt;</div><div class="line">        )</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="传递参数"><a href="#传递参数" class="headerlink" title="传递参数"></a>传递参数</h3><p>将bind中的第二个参数作为需要传递的数据</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">Component</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line">    <span class="keyword">constructor</span>(props)&#123;</div><div class="line">        <span class="keyword">super</span>(props)</div><div class="line">    &#125;</div><div class="line">    onClick(name,e)&#123;</div><div class="line">        <span class="built_in">console</span>.log(name) <span class="comment">//&#123;'name':'Jack'&#125;</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    render()&#123;</div><div class="line">        <span class="keyword">return</span> (</div><div class="line">        &lt;button onClick = &#123;this.onClick.bind(this,&#123;'name':'Jack'&#125;)&#125; /&gt;</div><div class="line">        )</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/12/03/Mac使用记录/" itemprop="url">
+                  Mac使用记录(持续更新中...)
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-12-03T11:22:02+08:00" content="2016-12-03">
+              2016-12-03
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/12/03/Mac使用记录/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/03/Mac使用记录/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="开发相关"><a href="#开发相关" class="headerlink" title="开发相关"></a>开发相关</h3><p>1、前端开发环境搭建</p>
+<ul>
+<li><p>1.1、node环境安装<br>1.1.1、NVM 安装<br>为避免各个项目中使用到的node版本不一致的问题，所以推荐使用NVM来进行管理node的版本，需要哪  版本的node就切换哪个版本，比较方便。<br>安装方式参照<a href="https://segmentfault.com/a/1190000004404505" target="_blank" rel="external">https://segmentfault.com/a/1190000004404505</a><br>1.1.2、查看远程可以下载的nodejs版本  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ nvm ls-remote</div></pre></td></tr></table></figure>
+<p>1.1.3、下载需要的版本号  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ nvm install v7.2</div></pre></td></tr></table></figure>
+<p>1.1.4、设置默认的版本号  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ nvm <span class="built_in">alias</span> default 7.2</div></pre></td></tr></table></figure>
+</li>
+<li><p>2.1 nginx安装<br>2.1.1、使用brew安装nginx  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ brew install nginx</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>brew 又叫Homebrew,是Mac系统中用来安装软件包的包管理器<br>  2.1.2、启动nginx<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ nginx</div></pre></td></tr></table></figure></p>
+<p>默认开启8080端口<br>  2.1.3、停止nginx<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ nginx <span class="_">-s</span> stop</div></pre></td></tr></table></figure></p>
+<p>  2.1.4 查看所有nginx服务<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ps -ef | grep nginx</div></pre></td></tr></table></figure></p>
+<ul>
+<li><p>3.1 mac 查看端口<br>3.1.1 查看所有被使用的端口号</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ lsof</div></pre></td></tr></table></figure>
+<p>3.1.2 查看某个端口号是否被占用</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ lsof -i:yourport(如：8080)</div></pre></td></tr></table></figure>
+<p>3.1.3 查看某个端口具体是哪个应用程序占用了的可以用:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ps aux | grep yourport</div></pre></td></tr></table></figure>
+</li>
+<li><p>4.1 用Python启动一个小型的服务器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python -m SimpleHTTPServer 9992</div></pre></td></tr></table></figure>
+</li>
+<li><p>5.1 ssh断开Linux使进程一直开启</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ nohup python -m SimpleHTTPServer 9992 &amp;</div></pre></td></tr></table></figure>
+</li>
+<li><p>6.1 复制一个文件到另外一个文件夹下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ cp -Rf 源路径/ 目标路径/</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>例如：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ cp -Rf ./build/* user/sites/</div></pre></td></tr></table></figure></p>
+<ul>
+<li>7 Python断点调试<br>①在需要调试的位置加上以下代码<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> pdb; pdb.set_trace()</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>②在控制台运行该脚本文件<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ python -m pdb XXX.py</div></pre></td></tr></table></figure></p>
+<p>然后就会在第①步的地方停止<br><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">(Pdb)</div></pre></td></tr></table></figure></p>
+<p>这时按‘c’继续,并且可以在控制台打印需要显示的值</p>
+<ul>
+<li><p>8 查看文件大小</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">df -h <span class="comment"># 查看磁盘大小</span></div><div class="line">du -h <span class="comment"># 查看文件夹的大小</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>9 创建文件夹并进入</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mkdir folder_name &amp;&amp; <span class="variable">$_</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>10 查看动态日志</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">tail <span class="_">-f</span> xx.log </div><div class="line"><span class="comment"># 或者 -d表示高亮不同的地方，-n表示多少秒刷新一次</span></div><div class="line">watch <span class="_">-d</span> -n 1 cat xx.log</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="开发无关"><a href="#开发无关" class="headerlink" title="开发无关"></a>开发无关</h3><p>*1、node转换base64<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ node <span class="comment">//进入node环境</span></div><div class="line">&gt; <span class="keyword">new</span> Buffer(<span class="string">'Y0Bmb295by5zZw'</span>,<span class="string">'base64'</span>).toString()</div></pre></td></tr></table></figure></p>
+<h3 id="vim-常用命令"><a href="#vim-常用命令" class="headerlink" title="vim 常用命令"></a>vim 常用命令</h3><ol>
+<li>全选<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ggVG</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>gg 让光标移动到首行<br>V 进入Visual模式<br>G 光标移动到最后一行<br>选中内容以后就可以对选择的内容做其他处理了，比如:<br>d 删除选择内容<br>y 复制选择内容到 0 号寄存器<br>“+y 复制内容到 + 寄存器中，也就是系统粘贴板，可以供其他程序用</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/12/02/hello-world/" itemprop="url">
+                  使用hexo搭建博客系统
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-12-02T12:44:26+08:00" content="2016-12-02">
+              2016-12-02
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/12/02/hello-world/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/02/hello-world/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>该博客系统使用开源博客工具Hexo搭建 官网<a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>!  <a href="https://hexo.io/docs/" target="_blank" rel="external">介绍</a> github地址 <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<h2 id="快速入门"><a href="#快速入门" class="headerlink" title="快速入门"></a>快速入门</h2><h3 id="创建新文档"><a href="#创建新文档" class="headerlink" title="创建新文档"></a>创建新文档</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
+<p>更多信息: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="运行服务"><a href="#运行服务" class="headerlink" title="运行服务"></a>运行服务</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
+<p>更多信息: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="生成静态文件"><a href="#生成静态文件" class="headerlink" title="生成静态文件"></a>生成静态文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
+<p>更多信息: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="部署到远程站点"><a href="#部署到远程站点" class="headerlink" title="部署到远程站点"></a>部署到远程站点</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
+<p>更多信息: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/11/11/常用的vs-code-扩展程序/" itemprop="url">
+                  常用的vs code 扩展程序
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-11-11T10:38:47+08:00" content="2016-11-11">
+              2016-11-11
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/11/11/常用的vs-code-扩展程序/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/11/常用的vs-code-扩展程序/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="VisualStudio-Code-extension-List"><a href="#VisualStudio-Code-extension-List" class="headerlink" title="VisualStudio Code extension List"></a>VisualStudio Code extension List</h3><p>1、JS-CSS-HTML-Formatter</p>
+<p>  自动格式化js、css、html代码插件，最新版本0.2.1有点儿恶心，没输入完一个字母都会去格式化<br>  体验不是很好</p>
+<p>2、React Redux ES6 Snippets</p>
+<p>  Redux 代码片段插件，很实用，比如写mapStateToProps方法，只需要输入mstop+Tab键，就可以<br>  自动生成如下代码：<br>  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">const</span> mapStateToProps = <span class="function">(<span class="params">state, ownProps</span>) =&gt;</span> &#123;</div><div class="line">  <span class="keyword">return</span> &#123;</div><div class="line">    <span class="attr">prop</span>: state.prop</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>3、Reactjs code Snippets</p>
+<p>  react 常用的代码片段插件</p>
+<p>4、Python</p>
+<p>  支持编写python环境的插件</p>
+<p>5、Easy LESS</p>
+<p>  将less文件自动编译为css文件</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/11/09/编写chrome插件-bookmarks/" itemprop="url">
                   编写chrome插件-bookmarks
                 </a>
@@ -613,6 +1346,153 @@
 
 
     
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-categories " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/11/02/React/" itemprop="url">
+                  React生命周期
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-11-02T01:04:50+08:00" content="2016-11-02">
+              2016-11-02
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/database/" itemprop="url" rel="index">
+                    <span itemprop="name">database</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/11/02/React/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/02/React/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="生命周期方法"><a href="#生命周期方法" class="headerlink" title="生命周期方法"></a>生命周期方法</h2><p>组件的生命周期主要包括以下几种情况</p>
+<ul>
+<li><p>组件被实例化的时候</p>
+</li>
+<li><p>组件属性改变的时候</p>
+</li>
+<li><p>组件状态被改变的时候</p>
+</li>
+<li><p>组件被销毁的时候</p>
+</li>
+</ul>
+<h5 id="1-componentWillMount"><a href="#1-componentWillMount" class="headerlink" title="1 componentWillMount"></a>1 componentWillMount</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">componentWillMount</span><span class="params">()</span></span></div></pre></td></tr></table></figure>
+<p>条件：第一次渲染阶段在调用 render 方法前会被调用<br>作用：该方法在整个组件生命周期只会被调用一次，所以可以利用该方法做一些组件内部的初始化工作</p>
+<h5 id="2-componentDidMount"><a href="#2-componentDidMount" class="headerlink" title="2 componentDidMount"></a>2 componentDidMount</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">componentDidMount</span><span class="params">()</span></span></div></pre></td></tr></table></figure>
+<p>条件：第一次渲染成功过后，组件对应的 DOM 已经添加到页面后调用<br>作用：这个阶段表示组件对应的 DOM 已经存在，我们可以在这个时候做一些依赖 DOM 的操作或者其他的一些如请求数据，和第三方库整合的操作。如果嵌套了子组件，子组件会比父组件优先渲染，所以这个时候可以获取子组件对应的 DOM。</p>
+<h5 id="3-componentWillReceiveProps-newProps"><a href="#3-componentWillReceiveProps-newProps" class="headerlink" title="3 componentWillReceiveProps(newProps)"></a>3 componentWillReceiveProps(newProps)</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">componentWillReceiveProps</span><span class="params">(</span></span></div><div class="line">  object nextProps</div><div class="line">)</div></pre></td></tr></table></figure>
+<p>条件： 当组件获取新属性的时候，第一次渲染不会调用<br>用处： 这个时候可以根据新的属性来修改组件状态 </p>
+<p>eg:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">componentWillReceiveProps: <span class="function"><span class="keyword">function</span>(<span class="params">nextProps</span>) </span>&#123;</div><div class="line">     <span class="keyword">this</span>.setState(&#123;</div><div class="line">       <span class="attr">likesIncreasing</span>: nextProps.likeCount &gt; <span class="keyword">this</span>.props.likeCount</div><div class="line">     &#125;);</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>注意： 这个时候虽说是获取新属性，但并不能确定属性一定改变了，例如一个组件被多次渲染到 DOM 中，如下面：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> Component = React.createClass(&#123;</div><div class="line">       <span class="attr">componentWillReceiveProps</span>: <span class="function"><span class="keyword">function</span>(<span class="params">nextProps</span>) </span>&#123;</div><div class="line">           <span class="built_in">console</span>.log(<span class="string">'componentWillReceiveProps'</span>, nextProps.data.bar);</div><div class="line">       &#125;,</div><div class="line">       <span class="attr">rener</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">           <span class="keyword">return</span> &lt;div&gt; &#123;this.props.data.bar&#125; &lt;/div&gt;</div><div class="line">       &#125;</div><div class="line">   &#125;);</div><div class="line"></div><div class="line">   <span class="keyword">var</span> container = <span class="built_in">document</span>.getElementById(<span class="string">'container'</span>);</div><div class="line">   <span class="keyword">var</span> mydata = &#123;<span class="attr">bar</span>: <span class="string">'drinks'</span>&#125;;</div><div class="line">   ReactDOM.render(&lt;Component data=&#123;mydata&#125; /&gt;, container);</div><div class="line">   ReactDOM.render(&lt;Component data=&#123;mydata&#125; /&gt;, container);</div><div class="line">   ReactDOM.render(&lt;Component data=&#123;mydata&#125; /&gt;, container);</div></pre></td></tr></table></figure>
+<p>结果会输出两次 componentWillReceiveProps，虽然属性数据没有改变，但是仍然会调用 componentWillReceiveProps 方法。</p>
+<h5 id="4-shouldComponentUpdate-nextProps-nextState"><a href="#4-shouldComponentUpdate-nextProps-nextState" class="headerlink" title="4 shouldComponentUpdate(nextProps, nextState)"></a>4 shouldComponentUpdate(nextProps, nextState)</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function">boolean <span class="title">shouldComponentUpdate</span><span class="params">(</span></span></div><div class="line">  object nextProps, object nextState</div><div class="line">)</div></pre></td></tr></table></figure>
+<p>条件： 接收到新属性或者新状态的时候在 render 前会被调用（除了调用 forceUpdate 和初始化渲染以外）<br>用处： 该方法让我们有机会决定是否重渲染组件，如果返回 false，那么不会重渲染组件，借此可以优化应用性能（在组件很多的情况）。</p>
+<h5 id="5-componentWillUpdate"><a href="#5-componentWillUpdate" class="headerlink" title="5 componentWillUpdate"></a>5 componentWillUpdate</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">componentWillUpdate</span><span class="params">(</span></span></div><div class="line">  object nextProps, object nextState</div><div class="line">)</div></pre></td></tr></table></figure>
+<p>条件：当组件确定要更新，在 render 之前调用<br>用处：这个时候可以确定一定会更新组件，可以执行更新前的操作<br>注意：方法中不能使用 setState ，setState 的操作应该在 componentWillReceiveProps 方法中调用</p>
+<h5 id="6-componentDidUpdate"><a href="#6-componentDidUpdate" class="headerlink" title="6 componentDidUpdate"></a>6 componentDidUpdate</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">componentDidUpdate</span><span class="params">(</span></span></div><div class="line">  object prevProps, object prevState</div><div class="line">)</div></pre></td></tr></table></figure>
+<p>条件：更新被应用到 DOM 之后<br>用处：可以执行组件更新过后的操作</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
@@ -658,7 +1538,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-count">20</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -675,7 +1555,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -741,7 +1621,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

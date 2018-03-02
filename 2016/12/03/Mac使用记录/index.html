@@ -96,7 +96,7 @@
 
 1.1、node环境安装1.1.1、NVM 安装为避免各个项目中使用到的node版本不一致的问题，所以推荐使用NVM来进行管理node的版本，需要哪  版本的node就切换哪个版本，比较方便。安装方式参照https://segmentfault.com/a/11900000044045051.1.2、查看远程可以下载的nodejs版本  
 1$ nvm ls-rem">
-<meta property="og:updated_time" content="2017-08-15T05:50:14.000Z">
+<meta property="og:updated_time" content="2018-01-09T17:41:16.786Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mac使用记录(持续更新中...)">
 <meta name="twitter:description" content="开发相关1、前端开发环境搭建
@@ -355,6 +355,17 @@
 <p>②在控制台运行该脚本文件<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ python -m pdb XXX.py</div></pre></td></tr></table></figure></p>
 <p>然后就会在第①步的地方停止<br><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">(Pdb)</div></pre></td></tr></table></figure></p>
 <p>这时按‘c’继续,并且可以在控制台打印需要显示的值</p>
+<ul>
+<li><p>8 查看文件大小</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">df -h <span class="comment"># 查看磁盘大小</span></div><div class="line">du -h <span class="comment"># 查看文件夹的大小</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>9 创建文件夹并进入</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mkdir folder_name &amp;&amp; <span class="variable">$_</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>10 查看动态日志</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">tail <span class="_">-f</span> xx.log </div><div class="line"><span class="comment"># 或者 -d表示高亮不同的地方，-n表示多少秒刷新一次</span></div><div class="line">watch <span class="_">-d</span> -n 1 cat xx.log</div></pre></td></tr></table></figure>
+</li>
+</ul>
 <h3 id="开发无关"><a href="#开发无关" class="headerlink" title="开发无关"></a>开发无关</h3><p>*1、node转换base64<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ node <span class="comment">//进入node环境</span></div><div class="line">&gt; <span class="keyword">new</span> Buffer(<span class="string">'Y0Bmb295by5zZw'</span>,<span class="string">'base64'</span>).toString()</div></pre></td></tr></table></figure></p>
 <h3 id="vim-常用命令"><a href="#vim-常用命令" class="headerlink" title="vim 常用命令"></a>vim 常用命令</h3><ol>
 <li>全选<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ggVG</div></pre></td></tr></table></figure>
@@ -468,7 +479,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-count">20</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -485,7 +496,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -562,7 +573,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

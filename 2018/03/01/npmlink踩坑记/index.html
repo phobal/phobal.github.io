@@ -1,0 +1,718 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="react npm," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="框架说明项目采用 react 库进行开发
+坑的出现目前项目 A 开发中过程中有一些比较通用的大组件，比较合适单独提取出来作为一个项目 B，然后在
+
+开发阶段使用 npm link 的方式将 B 组件软链接到 A 项目中  
+
+生产阶段使用 npm i B -S 的方式将 B 组件作为 A 项目的 dependencies  
+
+
+A、B 都依赖于 react , 在开发阶段通过 npm link">
+<meta property="og:type" content="article">
+<meta property="og:title" content="npm link 踩坑记">
+<meta property="og:url" content="http://phobal.geithub.io/2018/03/01/npmlink踩坑记/index.html">
+<meta property="og:site_name" content="phobal`s blogs">
+<meta property="og:description" content="框架说明项目采用 react 库进行开发
+坑的出现目前项目 A 开发中过程中有一些比较通用的大组件，比较合适单独提取出来作为一个项目 B，然后在
+
+开发阶段使用 npm link 的方式将 B 组件软链接到 A 项目中  
+
+生产阶段使用 npm i B -S 的方式将 B 组件作为 A 项目的 dependencies  
+
+
+A、B 都依赖于 react , 在开发阶段通过 npm link">
+<meta property="og:updated_time" content="2018-03-01T09:03:46.874Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="npm link 踩坑记">
+<meta name="twitter:description" content="框架说明项目采用 react 库进行开发
+坑的出现目前项目 A 开发中过程中有一些比较通用的大组件，比较合适单独提取出来作为一个项目 B，然后在
+
+开发阶段使用 npm link 的方式将 B 组件软链接到 A 项目中  
+
+生产阶段使用 npm i B -S 的方式将 B 组件作为 A 项目的 dependencies  
+
+
+A、B 都依赖于 react , 在开发阶段通过 npm link">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://phobal.geithub.io/2018/03/01/npmlink踩坑记/"/>
+
+
+  <title> npm link 踩坑记 | phobal`s blogs </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">phobal`s blogs</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                npm link 踩坑记
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-03-01T15:56:54+08:00" content="2018-03-01">
+              2018-03-01
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2018/03/01/npmlink踩坑记/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/03/01/npmlink踩坑记/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="框架说明"><a href="#框架说明" class="headerlink" title="框架说明"></a>框架说明</h3><p>项目采用 <a href="https://github.com/facebook/react/" target="_blank" rel="external">react</a> 库进行开发</p>
+<h3 id="坑的出现"><a href="#坑的出现" class="headerlink" title="坑的出现"></a>坑的出现</h3><p>目前项目 A 开发中过程中有一些比较通用的大组件，比较合适单独提取出来作为一个项目 B，然后在</p>
+<ul>
+<li><p>开发阶段<br>使用 <code>npm link</code> 的方式将 B 组件软链接到 A 项目中  </p>
+</li>
+<li><p>生产阶段<br>使用 <code>npm i B -S</code> 的方式将 B 组件作为 A 项目的 dependencies  </p>
+</li>
+</ul>
+<p>A、B 都依赖于 react , 在开发阶段通过 npm link B 的方式 B 映入到 A 中时问题出现了</p>
+<blockquote>
+<p>Uncaught Invariant Violation: addComponentAsRefTo(…): Only a ReactOwner can have refs. You might be adding a ref to a component that was not created inside a component’s render method, or you have multiple copies of React loaded (details: fb.me/react-refs-must-have-owner).</p>
+</blockquote>
+<h3 id="查找问题"><a href="#查找问题" class="headerlink" title="查找问题"></a>查找问题</h3><p>然后我就顺藤摸瓜到了 <a href="https://reactjs.org/warnings/refs-must-have-owner.html" target="_blank" rel="external">https://reactjs.org/warnings/refs-must-have-owner.html</a>, 官方给出了三种可能 </p>
+<ul>
+<li>You are trying to add a ref to a functional component</li>
+<li>You are trying to add a ref to an element that is being created outside of a component’s render() function</li>
+<li><p>You have multiple (conflicting) copies of React loaded (eg. due to a misconfigured npm dependency)</p>
+<p>第一种情况说可能是我在函数式组件里面使用到了 ref 属性，检查代码后发现并没有，所以这种原因可以排除；  </p>
+<p>第二种情况可能是我在 render 方法外定义的组件中使用到了 ref, 经过检查也没有，所以也排除了这个原因；  </p>
+<p>只剩下最后一种情况了，npm 中同时存在 2 个 react ,问题终于找到了</p>
+<h3 id="尝试解决"><a href="#尝试解决" class="headerlink" title="尝试解决"></a>尝试解决</h3></li>
+</ul>
+<ol>
+<li><p>首先想到的是：会不会是因为用的其他 React 第三方库作者在开发组件库的时候将 react 写进了 dependenices 中，导致 npm 在安装的时候安装了 2 次，然后排查了下项目依赖的第三方库中比较可疑的，还真发现了一个，然后找作者解决了这个问题，然后再试了下，遗憾的是并没有解决到问题；  </p>
+</li>
+<li><p>然后在想可能还有些没有排查干净，于是新建了一个无任何其他第三方的 demo 项目进行测试，发现还是有这个问题，说明问题应该不是因为将 react 放在了 dependencies,而没有放在 peerDependencies 中造成的.  </p>
+</li>
+<li><p>然后尝试将 B 组件编译打包发布到 npm 仓库中去，然后像上面提到的生产环境使用的方式去使用，神奇了，居然不报上麦的错误了，程序能正常 run 起来了，这不正好说明是 是使用 npm link 的锅么？  </p>
+<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3></li>
+</ol>
+<p>既然确定了问题所在，那就带着问题去 Google 上搜索 <code>npm link react</code> , 第一条结果就有描述, 原来是因为通过 npm link 的方式添加进来的组件，这些组件中使用到的 react 会在源地址中去查找 react, 然后本身 A 项目已经包含了一个版本的 react,所以就会提示包含了 2 个版本的 react, 解决方案可以在 webpack config 文件中配置 alias, 将 react 手动指向 A 项目中的 node_moudules/react, 如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">  ...</div><div class="line">  resolve: &#123;</div><div class="line">    <span class="attr">alias</span>: &#123;</div><div class="line">      <span class="attr">react</span>: path.resolve(<span class="string">'./node_modules/react'</span>),</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这样就能确保只会在一个地方去找 React 了。</p>
+<p>【完】</p>
+<p>参考：</p>
+<ul>
+<li><p><a href="https://github.com/facebook/create-react-app/issues/393" target="_blank" rel="external">https://github.com/facebook/create-react-app/issues/393</a></p>
+</li>
+<li><p><a href="https://stackoverflow.com/questions/31169760/how-to-avoid-react-loading-twice-with-webpack-when-developing/38818358#38818358" target="_blank" rel="external">https://stackoverflow.com/questions/31169760/how-to-avoid-react-loading-twice-with-webpack-when-developing/38818358#38818358</a></p>
+</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/react-npm/" rel="tag">#react npm</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/02/26/tmux使用体验/" rel="next" title="tmux使用体验">
+                <i class="fa fa-chevron-left"></i> tmux使用体验
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2018/03/01/npmlink踩坑记/"
+           data-title="npm link 踩坑记" data-url="http://phobal.geithub.io/2018/03/01/npmlink踩坑记/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="phobal" />
+          <p class="site-author-name" itemprop="name">phobal</p>
+          <p class="site-description motion-element" itemprop="description">web developer</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">20</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/phobal" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/phoneball" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/phoneball" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#框架说明"><span class="nav-number">1.</span> <span class="nav-text">框架说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#坑的出现"><span class="nav-number">2.</span> <span class="nav-text">坑的出现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查找问题"><span class="nav-number">3.</span> <span class="nav-text">查找问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#尝试解决"><span class="nav-number">4.</span> <span class="nav-text">尝试解决</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方法"><span class="nav-number">5.</span> <span class="nav-text">解决方法</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">phobal</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"phobal"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
