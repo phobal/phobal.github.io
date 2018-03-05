@@ -259,6 +259,111 @@
             
               
                 
+                <a class="post-title-link" href="/2017/05/26/codesnippet/" itemprop="url">
+                  codesnippet(持续更新中...)
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-05-26T10:10:58+08:00" content="2017-05-26">
+              2017-05-26
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/05/26/codesnippet/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/05/26/codesnippet/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="记录一些有用的代码片段"><a href="#记录一些有用的代码片段" class="headerlink" title="记录一些有用的代码片段"></a>记录一些有用的代码片段</h3><h4 id="javascript"><a href="#javascript" class="headerlink" title="javascript"></a>javascript</h4><ul>
+<li>比较一个大的对象中的除了某一个子对象的其他对象是否相等 <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">componentWillReceiveProps (nextProps) &#123;</div><div class="line">    <span class="keyword">const</span> staticNextProps = lodash.cloneDeep(nextProps)</div><div class="line">    <span class="keyword">delete</span> staticNextProps.columns</div><div class="line">    <span class="keyword">const</span> &#123; columns, ...otherProps &#125; = <span class="keyword">this</span>.props</div><div class="line"></div><div class="line">    <span class="keyword">const</span> isEqual = lodash.isEqual(staticNextProps, otherProps));</div><div class="line">    ......</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><em>点评</em><br>很巧妙的在不破坏原数据(nextProps)的情况下深拷贝出来一个对象staticNextProps,因为不需要比较columns这个子对象，然后删除这个子对象，最后更巧妙地是使用ES6的rest运算符…otherProps将this.props中除了cloumns子对象的其他对象包装成一个新的对象，最后使用lodash的isEqual深比较方法进行比较，非常犀利的思路！<br>此段代码来自<a href="https://github.com/zuiidea/antd-admin/blob/master/src/components/DataTable/DataTable.js#L32" target="_blank" rel="external">antd-admin示例代码</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2017/04/08/react-state定义的3种方式/" itemprop="url">
                   react state定义的3种方式
                 </a>
@@ -1346,158 +1451,11 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-categories " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/11/02/React/" itemprop="url">
-                  React生命周期
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-11-02T01:04:50+08:00" content="2016-11-02">
-              2016-11-02
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/database/" itemprop="url" rel="index">
-                    <span itemprop="name">database</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/11/02/React/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/02/React/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="生命周期方法"><a href="#生命周期方法" class="headerlink" title="生命周期方法"></a>生命周期方法</h2><p>组件的生命周期主要包括以下几种情况</p>
-<ul>
-<li><p>组件被实例化的时候</p>
-</li>
-<li><p>组件属性改变的时候</p>
-</li>
-<li><p>组件状态被改变的时候</p>
-</li>
-<li><p>组件被销毁的时候</p>
-</li>
-</ul>
-<h5 id="1-componentWillMount"><a href="#1-componentWillMount" class="headerlink" title="1 componentWillMount"></a>1 componentWillMount</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">componentWillMount</span><span class="params">()</span></span></div></pre></td></tr></table></figure>
-<p>条件：第一次渲染阶段在调用 render 方法前会被调用<br>作用：该方法在整个组件生命周期只会被调用一次，所以可以利用该方法做一些组件内部的初始化工作</p>
-<h5 id="2-componentDidMount"><a href="#2-componentDidMount" class="headerlink" title="2 componentDidMount"></a>2 componentDidMount</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">componentDidMount</span><span class="params">()</span></span></div></pre></td></tr></table></figure>
-<p>条件：第一次渲染成功过后，组件对应的 DOM 已经添加到页面后调用<br>作用：这个阶段表示组件对应的 DOM 已经存在，我们可以在这个时候做一些依赖 DOM 的操作或者其他的一些如请求数据，和第三方库整合的操作。如果嵌套了子组件，子组件会比父组件优先渲染，所以这个时候可以获取子组件对应的 DOM。</p>
-<h5 id="3-componentWillReceiveProps-newProps"><a href="#3-componentWillReceiveProps-newProps" class="headerlink" title="3 componentWillReceiveProps(newProps)"></a>3 componentWillReceiveProps(newProps)</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">componentWillReceiveProps</span><span class="params">(</span></span></div><div class="line">  object nextProps</div><div class="line">)</div></pre></td></tr></table></figure>
-<p>条件： 当组件获取新属性的时候，第一次渲染不会调用<br>用处： 这个时候可以根据新的属性来修改组件状态 </p>
-<p>eg:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">componentWillReceiveProps: <span class="function"><span class="keyword">function</span>(<span class="params">nextProps</span>) </span>&#123;</div><div class="line">     <span class="keyword">this</span>.setState(&#123;</div><div class="line">       <span class="attr">likesIncreasing</span>: nextProps.likeCount &gt; <span class="keyword">this</span>.props.likeCount</div><div class="line">     &#125;);</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
-<p>注意： 这个时候虽说是获取新属性，但并不能确定属性一定改变了，例如一个组件被多次渲染到 DOM 中，如下面：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> Component = React.createClass(&#123;</div><div class="line">       <span class="attr">componentWillReceiveProps</span>: <span class="function"><span class="keyword">function</span>(<span class="params">nextProps</span>) </span>&#123;</div><div class="line">           <span class="built_in">console</span>.log(<span class="string">'componentWillReceiveProps'</span>, nextProps.data.bar);</div><div class="line">       &#125;,</div><div class="line">       <span class="attr">rener</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">           <span class="keyword">return</span> &lt;div&gt; &#123;this.props.data.bar&#125; &lt;/div&gt;</div><div class="line">       &#125;</div><div class="line">   &#125;);</div><div class="line"></div><div class="line">   <span class="keyword">var</span> container = <span class="built_in">document</span>.getElementById(<span class="string">'container'</span>);</div><div class="line">   <span class="keyword">var</span> mydata = &#123;<span class="attr">bar</span>: <span class="string">'drinks'</span>&#125;;</div><div class="line">   ReactDOM.render(&lt;Component data=&#123;mydata&#125; /&gt;, container);</div><div class="line">   ReactDOM.render(&lt;Component data=&#123;mydata&#125; /&gt;, container);</div><div class="line">   ReactDOM.render(&lt;Component data=&#123;mydata&#125; /&gt;, container);</div></pre></td></tr></table></figure>
-<p>结果会输出两次 componentWillReceiveProps，虽然属性数据没有改变，但是仍然会调用 componentWillReceiveProps 方法。</p>
-<h5 id="4-shouldComponentUpdate-nextProps-nextState"><a href="#4-shouldComponentUpdate-nextProps-nextState" class="headerlink" title="4 shouldComponentUpdate(nextProps, nextState)"></a>4 shouldComponentUpdate(nextProps, nextState)</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function">boolean <span class="title">shouldComponentUpdate</span><span class="params">(</span></span></div><div class="line">  object nextProps, object nextState</div><div class="line">)</div></pre></td></tr></table></figure>
-<p>条件： 接收到新属性或者新状态的时候在 render 前会被调用（除了调用 forceUpdate 和初始化渲染以外）<br>用处： 该方法让我们有机会决定是否重渲染组件，如果返回 false，那么不会重渲染组件，借此可以优化应用性能（在组件很多的情况）。</p>
-<h5 id="5-componentWillUpdate"><a href="#5-componentWillUpdate" class="headerlink" title="5 componentWillUpdate"></a>5 componentWillUpdate</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">componentWillUpdate</span><span class="params">(</span></span></div><div class="line">  object nextProps, object nextState</div><div class="line">)</div></pre></td></tr></table></figure>
-<p>条件：当组件确定要更新，在 render 之前调用<br>用处：这个时候可以确定一定会更新组件，可以执行更新前的操作<br>注意：方法中不能使用 setState ，setState 的操作应该在 componentWillReceiveProps 方法中调用</p>
-<h5 id="6-componentDidUpdate"><a href="#6-componentDidUpdate" class="headerlink" title="6 componentDidUpdate"></a>6 componentDidUpdate</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">componentDidUpdate</span><span class="params">(</span></span></div><div class="line">  object prevProps, object prevState</div><div class="line">)</div></pre></td></tr></table></figure>
-<p>条件：更新被应用到 DOM 之后<br>用处：可以执行组件更新过后的操作</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1538,7 +1496,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">20</span>
+              <span class="site-state-item-count">21</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1555,7 +1513,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
